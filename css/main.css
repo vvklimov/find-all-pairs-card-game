@@ -1,7 +1,5 @@
 /* template */
-body {
-  padding: 2rem 2rem;
-}
+
 /* template */
 *,
 ::after,
@@ -26,6 +24,9 @@ html {
   --primary-700: #1c766d;
   --primary-800: #124e49;
   --primary-900: #092724;
+  --navbarPrimary: #2b2e4a;
+  --navbarGradient: linear-gradient(to right, #40435c, #272943);
+  --primaryGradient: linear-gradient(to right, #00ff8f 0%, #00a1ff 100%);
 
   /* gray */
   --gray-50: #f8fafc;
@@ -51,6 +52,7 @@ html {
   --smallText: 0.7em;
   /* rest of the vars */
   --backgroundColor: var(--gray-50);
+
   --textColor: var(--gray-900);
   --borderRadius: 0.25rem;
   --letterSpacing: 1px;
@@ -147,7 +149,6 @@ ul {
 }
 
 .btn:hover {
-  background: var(--primary-600);
   box-shadow: var(--shadow-3);
 }
 
@@ -252,3 +253,117 @@ ul {
   height: 0.25rem;
   margin: 0 auto;
 }
+/* 
+background color     color: rgb(9, 11, 23);
+*/
+.img {
+  width: 100%;
+  display: block;
+}
+
+/****************
+===================
+ find all pairs styling 
+=================== 
+ *****************/
+
+/*navbar  */
+.nav {
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--navbarGradient);
+  position: relative;
+  z-index: 1;
+  margin-bottom: 2rem;
+}
+.nav-center {
+  width: 90vw;
+  max-width: var(--max-width);
+}
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.btn {
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--borderRadius);
+  border-color: transparent;
+  color: white;
+  background-image: var(--primaryGradient);
+  cursor: pointer;
+  transition: var(--transition);
+}
+.toggle-btn:hover {
+  color: var(--black);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+}
+.nav-links {
+  display: none;
+}
+.nav-logo {
+  width: 229px;
+  height: 43px;
+}
+
+/* end of navbar */
+/* cards */
+.deck-container {
+  max-width: var(--max-width);
+  display: grid;
+  width: 90vw;
+  margin: 0 auto;
+  grid-template-columns: repeat(4, 1fr);
+  /* Calculate the row height to include the gap */
+  grid-template-rows: repeat(4, 1fr);
+  gap: 1rem;
+  height: calc(100vh - 6rem - 2rem);
+  margin-bottom: 2rem;
+}
+.single-card {
+  height: 20vh;
+}
+.card-img {
+  border-radius: 0.5rem;
+  height: 100%;
+  margin: 0;
+}
+
+/* linear gradient for text color */
+.link-btn {
+  /* background: transparent; */
+  background-image: linear-gradient(to right, #00ff8f 0%, #00a1ff 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  color: var(--white);
+}
+@keyframes hoverEffect {
+  0% {
+    color: rgba(255, 255, 255, 1);
+  }
+  100% {
+    color: rgba(255, 255, 255, 0);
+  }
+}
+.link-btn-hover-effect {
+  animation: hoverEffect 0.3s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards, none;
+}
+/* end of linear gradient for text */
+/* footer */
+.footer {
+  display: flex;
+  height: 3rem;
+  background: var(--navbarPrimary);
+  color: var(--white);
+  letter-spacing: var(--letterSpacing);
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+/* end of footer */
