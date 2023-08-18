@@ -51,6 +51,9 @@ html {
   --bodyFont: "Karla", sans-serif;
   --smallText: 0.7em;
   /* rest of the vars */
+
+  --cardsMaxHeight: 165px;
+  --cardsMaxWidth: calc(var(--cardsMaxHeight) / 1.557);
   --backgroundColor: var(--gray-50);
 
   --textColor: var(--gray-900);
@@ -301,7 +304,7 @@ background color     color: rgb(9, 11, 23);
   color: var(--black);
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
 }
-.nav-links {
+.nav-tags {
   display: none;
 }
 .nav-logo {
@@ -317,14 +320,17 @@ background color     color: rgb(9, 11, 23);
   width: 90vw;
   margin: 0 auto;
   grid-template-columns: repeat(4, 1fr);
-  /* Calculate the row height to include the gap */
   grid-template-rows: repeat(4, 1fr);
+
   gap: 1rem;
-  height: calc(100vh - 6rem - 2rem);
-  margin-bottom: 2rem;
+  height: calc(100vh - 6rem - 1rem);
+
+  padding-bottom: 1rem;
 }
 .single-card {
-  height: 20vh;
+  margin: 0 auto;
+  max-height: var(--cardsMaxHeight);
+  max-width: var(--cardsMaxWidth);
 }
 .card-img {
   border-radius: 0.5rem;
@@ -333,7 +339,7 @@ background color     color: rgb(9, 11, 23);
 }
 
 /* linear gradient for text color */
-.link-btn {
+.tag-btn {
   /* background: transparent; */
   background-image: linear-gradient(to right, #00ff8f 0%, #00a1ff 100%);
   background-clip: text;
@@ -367,3 +373,53 @@ background color     color: rgb(9, 11, 23);
   margin: 0;
 }
 /* end of footer */
+
+/* sidebar */
+.sidebar-wrapper {
+  position: fixed;
+  display: grid;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  place-items: center;
+  visibility: hidden;
+  z-index: -1;
+  transform: scale(0);
+  transition: all 0.5s;
+}
+.sidebar-wrapper.show {
+  visibility: visible;
+  z-index: 2;
+  transform: scale(1);
+}
+.sidebar {
+  position: relative;
+  height: 95vh;
+  width: 90vw;
+  background: var(--white);
+  border-radius: var(--borderRadius);
+  display: flex;
+  flex-direction: column;
+  padding: 4rem 4rem;
+  place-items: center;
+}
+.close-btn {
+  position: absolute;
+  top: 1%;
+  right: 2%;
+  font-size: 1rem;
+}
+
+.sidebar-tags {
+  border: 1px solid red;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 4rem;
+}
+.sidebar-tags > ul > li {
+  text-transform: capitalize;
+}

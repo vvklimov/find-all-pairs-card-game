@@ -23,11 +23,11 @@
           <img src="./assets/images/logo.png" class="nav-logo" alt="logo" />
           <button class="btn toggle-btn">menu</button>
         </div>
-        <ul class="nav-links">
-          <li><button class="link-btn">new game</button></li>
-          <li><button class="link-btn">size</button></li>
-          <li><button class="link-btn">themes</button></li>
-          <li><button class="link-btn">difficulty</button></li>
+        <ul class="nav-tags">
+          <li><button class="tag-btn">new game</button></li>
+          <li><button class="tag-btn">size</button></li>
+          <li><button class="tag-btn">themes</button></li>
+          <li><button class="tag-btn">difficulty</button></li>
         </ul>
       </div>
     </nav>
@@ -191,15 +191,35 @@
         <span>
           Created by
           <a
+            target="_blank"
             href="https://youllneverreachme.github.io/"
-            class="link-btn link-btn-hover-effect"
+            class="tag-btn link-btn-hover-effect"
             >Vladislav Klimov</a
           >
         </span>
       </div>
     </footer>
     <!-- end of footer -->
+    <!-- sidebar -->
+    <div class="sidebar-wrapper">
+      <aside class="sidebar">
+        <button class="close-btn btn">
+          <i class="fas fa-times"></i>
+        </button>
+        <!-- tags -->
+        <div class="sidebar-tags">
+          <ul>
+            <li>new game</li>
+            <li>difficulty</li>
+            <li>size of deck</li>
+            <li>themes</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
 
-    <script type="module" src="index.js"></script>
+    <aside class="submenu"></aside>
+
+    <script type="module" src="./index.js"></script>
   </body>
 </html>
