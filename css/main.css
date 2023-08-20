@@ -77,6 +77,8 @@ body {
   font-weight: 400;
   line-height: 1.75;
   color: var(--textColor);
+  display: flex;
+  flex-direction: column;
 }
 
 p {
@@ -313,6 +315,12 @@ background color     color: rgb(9, 11, 23);
 }
 
 /* end of navbar */
+/* hero */
+.hero {
+  min-height: calc(100vh - 6rem - 1rem);
+}
+/* end of hero */
+
 /* cards */
 .deck-container {
   max-width: var(--max-width);
@@ -323,7 +331,7 @@ background color     color: rgb(9, 11, 23);
   grid-template-rows: repeat(4, 1fr);
 
   gap: 1rem;
-  height: calc(100vh - 6rem - 1rem);
+  /* height: calc(100vh - 6rem - 1rem); */
 
   padding-bottom: 1rem;
 }
