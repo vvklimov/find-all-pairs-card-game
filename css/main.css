@@ -1,4 +1,13 @@
-/* template */
+/* 
+===========
+z-indexes
+===========
+ */
+/* 
+ 4  - show menu 
+ 3  - navbar, cards and footer
+ -1 - hidden menu 
+ */
 
 /* template */
 *,
@@ -272,7 +281,11 @@ background color     color: rgb(9, 11, 23);
 =================== 
  *****************/
 
-/*navbar  */
+/*
+=================
+navbar
+==================
+  */
 .nav {
   height: 5rem;
   display: flex;
@@ -280,8 +293,7 @@ background color     color: rgb(9, 11, 23);
   justify-content: center;
   background: var(--navbarGradient);
   position: relative;
-  z-index: 1;
-  margin-bottom: 2rem;
+  z-index: 3;
 }
 .nav-center {
   width: 90vw;
@@ -302,7 +314,7 @@ background color     color: rgb(9, 11, 23);
   cursor: pointer;
   transition: var(--transition);
 }
-.toggle-btn:hover {
+.btn:hover {
   color: var(--black);
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
 }
@@ -314,16 +326,33 @@ background color     color: rgb(9, 11, 23);
   height: 43px;
 }
 
-/* end of navbar */
+/*
+=================
+ end of navbar
+===================
+ */
+/*
+ =====================
+ main content
+ =====================
+ */
 /* hero */
 .hero {
-  min-height: calc(100vh - 6rem - 1rem);
+  padding-top: 2rem;
+  min-height: calc(100vh - 5rem);
+  background: url("../assets/images/table-bg.jpg") center/cover no-repeat;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 /* end of hero */
-
-/* cards */
+.hero-container {
+  width: 100%;
+  height: 100%;
+}
 .deck-container {
-  max-width: var(--max-width);
+  max-width: 580px;
   display: grid;
   width: 90vw;
   margin: 0 auto;
@@ -339,6 +368,7 @@ background color     color: rgb(9, 11, 23);
   margin: 0 auto;
   max-height: var(--cardsMaxHeight);
   max-width: var(--cardsMaxWidth);
+  z-index: 3;
 }
 .card-img {
   border-radius: 0.5rem;
@@ -346,9 +376,13 @@ background color     color: rgb(9, 11, 23);
   margin: 0;
 }
 
-/* linear gradient for text color */
+/*
+================================
+ linear gradient for text color
+================================
+ */
 .tag-btn {
-  /* background: transparent; */
+  background: transparent;
   background-image: linear-gradient(to right, #00ff8f 0%, #00a1ff 100%);
   background-clip: text;
   -webkit-background-clip: text;
@@ -368,8 +402,16 @@ background color     color: rgb(9, 11, 23);
   animation-timing-function: linear;
   animation-fill-mode: forwards, none;
 }
-/* end of linear gradient for text */
-/* footer */
+/* 
+===============================
+end of linear gradient for text
+===============================
+ */
+/* 
+=============
+footer
+=============
+ */
 .footer {
   display: flex;
   height: 3rem;
@@ -379,10 +421,19 @@ background color     color: rgb(9, 11, 23);
   justify-content: center;
   align-items: center;
   margin: 0;
+  z-index: 3;
 }
-/* end of footer */
+/* 
+=============
+end of footer
+=============
+ */
 
-/* sidebar */
+/* 
+=============
+sidebar
+=============
+ */
 .sidebar-wrapper {
   position: fixed;
   display: grid;
@@ -391,6 +442,7 @@ background color     color: rgb(9, 11, 23);
   height: 100%;
   width: 100%;
   background: rgba(0, 0, 0, 0.5);
+
   place-items: center;
   visibility: hidden;
   z-index: -1;
@@ -399,14 +451,14 @@ background color     color: rgb(9, 11, 23);
 }
 .sidebar-wrapper.show {
   visibility: visible;
-  z-index: 2;
+  z-index: 4;
   transform: scale(1);
 }
 .sidebar {
   position: relative;
   height: 95vh;
   width: 90vw;
-  background: var(--white);
+  background: var(--navbarGradient);
   border-radius: var(--borderRadius);
   display: flex;
   flex-direction: column;
@@ -421,13 +473,67 @@ background color     color: rgb(9, 11, 23);
 }
 
 .sidebar-tags {
-  border: 1px solid red;
   height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
   padding-top: 4rem;
+  color: rgba(255, 255, 255, 1);
 }
 .sidebar-tags > ul > li {
   text-transform: capitalize;
+  /* text-indent: 4rem; */
+  /* border-bottom: 1px solid var(--white); */
+  padding-bottom: 1rem;
 }
+.sidebar-tags > ul > li > h4 {
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+.sidebar-tags > ul > li > ul > li {
+  text-indent: 1rem;
+}
+/* 
+=============
+end of sidebar
+=============
+ */
+/* overlay */
+#overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.4);
+}
+/* chceckbox btn */
+.checkbox-btn {
+  background: var(--primaryGradient);
+  cursor: pointer;
+  transition: var(--transition);
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 0.25rem;
+
+  border: 0;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+}
+.checkbox-btn-middle-part {
+  background: var(--white);
+  border-radius: 50%;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0.5rem;
+}
+.checked {
+  padding: 0.35rem;
+  background: var(--primaryGradient);
+}
+/* end of checkbox btn */
