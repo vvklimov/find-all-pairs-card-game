@@ -292,17 +292,47 @@ navbar
   align-items: center;
   justify-content: center;
   background: var(--navbarGradient);
-  position: relative;
+
   z-index: 3;
 }
 .nav-center {
   width: 90vw;
   max-width: var(--max-width);
+  position: relative;
+  top: 0;
+  left: 0;
+  display: flex;
+  height: 100%;
 }
 .nav-header {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.nav-tags {
+  display: inline-block;
+  position: absolute;
+  top: 0%;
+  left: 35%;
+  margin: 0;
+  height: 100%;
+}
+.tag-btn {
+  height: 100%;
+  min-width: 6rem;
+  padding: 1rem;
+  border: 0;
+  text-transform: capitalize;
+  font-size: 1.25rem;
+  cursor: pointer;
+  letter-spacing: var(--letterSpacing);
+}
+.navbar-new-game-btn {
+  display: none;
+}
+.checked-show {
+  display: inline !important;
 }
 .btn {
   font-size: 1rem;
@@ -397,7 +427,7 @@ navbar
     color: rgba(255, 255, 255, 0);
   }
 }
-.link-btn-hover-effect {
+.gradient-hover-effect {
   animation: hoverEffect 0.3s;
   animation-timing-function: linear;
   animation-fill-mode: forwards, none;
@@ -475,9 +505,10 @@ sidebar
 .sidebar-tags {
   height: 100%;
   width: 100%;
+  max-width: 250px;
   display: flex;
-  justify-content: center;
-  padding-top: 4rem;
+  flex-direction: column;
+
   color: rgba(255, 255, 255, 1);
 }
 .sidebar-tags > ul > li {
@@ -485,15 +516,36 @@ sidebar
   /* text-indent: 4rem; */
   /* border-bottom: 1px solid var(--white); */
   padding-bottom: 1rem;
+  text-align: center;
 }
 .sidebar-tags > ul > li > h4 {
-  text-align: center;
   margin-bottom: 0.75rem;
 }
-.sidebar-tags > ul > li > ul > li {
-  text-indent: 1rem;
+.sidebar-tags > ul > li > ul {
+  padding-left: 10%;
 }
-/* 
+.sidebar-tags > ul > li > ul > li {
+  /* text-indent: 3rem; */
+  text-align: start;
+}
+.sidebar > .new-game-btn {
+  width: 90%;
+  max-width: 250px;
+}
+
+@media screen and (min-width: 772px) {
+  .toggle-btn {
+    display: none;
+  }
+
+  .nav-tags {
+    display: flex;
+  }
+  .navbar-new-game-btn {
+    display: inline-block !important;
+  }
+}
+/*
 =============
 end of sidebar
 =============
@@ -535,5 +587,9 @@ end of sidebar
 .checked {
   padding: 0.35rem;
   background: var(--primaryGradient);
+  display: none;
+}
+.checked-show {
+  display: inline !important;
 }
 /* end of checkbox btn */

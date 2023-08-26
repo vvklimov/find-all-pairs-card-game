@@ -1,7 +1,4 @@
-const navTags = [
-  {
-    tag: "new game",
-  },
+export const navTags = [
   {
     tag: "difficulty",
     subtags: ["easy", "normal", "hard"],

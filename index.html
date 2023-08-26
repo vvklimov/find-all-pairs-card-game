@@ -22,12 +22,12 @@
         <div class="nav-header">
           <img src="./assets/images/logo.png" class="nav-logo" alt="logo" />
           <button class="btn toggle-btn">menu</button>
+          <button class="btn new-game-btn navbar-new-game-btn">new game</button>
         </div>
         <ul class="nav-tags">
-          <li><button class="tag-btn">new game</button></li>
-          <li><button class="tag-btn">size</button></li>
-          <li><button class="tag-btn">themes</button></li>
-          <li><button class="tag-btn">difficulty</button></li>
+          <li><button class="tag-btn nav-btn">size</button></li>
+          <li><button class="tag-btn nav-btn">themes</button></li>
+          <li><button class="tag-btn nav-btn">difficulty</button></li>
         </ul>
       </div>
     </nav>
@@ -196,7 +196,7 @@
           <a
             target="_blank"
             href="https://youllneverreachme.github.io/"
-            class="tag-btn link-btn-hover-effect"
+            class="tag-btn gradient-hover-effect"
             >Vladislav Klimov</a
           >
         </span>
@@ -204,59 +204,15 @@
     </footer>
     <!-- end of footer -->
     <!-- sidebar -->
-    <div class="sidebar-wrapper show">
+    <div class="sidebar-wrapper">
       <aside class="sidebar">
         <button class="close-btn btn">
           <i class="fas fa-times"></i>
         </button>
+        <button class="btn new-game-btn">new game</button>
         <!-- tags -->
         <div class="sidebar-tags">
-          <ul>
-            <li>
-              <button class="btn">start new game</button>
-            </li>
-            <li>
-              <h4 class="tag-btn link-btn-hover-effect">difficulty</h4>
-              <ul>
-                <li><button class="settings-btn checkbox-btn"><div class="checkbox-btn-middle-part">
-                  <div class="checkbox-btn-middle-part checked"></div>
-                </div></button>easy</li>
-                <li><button class="settings-btn checkbox-btn"><div class="checkbox-btn-middle-part">
-               
-                </div></button>normal</li>
-                <li><button class="settings-btn checkbox-btn"><div class="checkbox-btn-middle-part">
-              
-                </div></button>hard</li>
-              </ul>
-            </li>
-            <li>
-              <h4 class="tag-btn link-btn-hover-effect">size of deck</h4>
-              <ul>
-                <li>16 cards</li>
-                <li>36 cards</li>
-              </ul>
-            </li>
-            <li>
-              <h4 class="tag-btn link-btn-hover-effect">themes</h4>
-              <ul>
-                <li>fantasy</li>
-                <li>
-                  JavaScript frameworks
-                </li>
-                <li>
-                  people
-                </li>
-                </li>
-                <li>
-                  nature
-                </li>
-                </li>
-                <li>
-                  surprise me
-                </li>
-              </ul>
-            </li>
-          </ul>
+          <ul class="sidebar-tags-ul"></ul>
         </div>
       </aside>
     </div>
