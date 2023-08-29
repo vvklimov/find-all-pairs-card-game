@@ -67,6 +67,7 @@ html {
 
   --textColor: var(--gray-900);
   --borderRadius: 0.25rem;
+  --menuBorderRadius: 0.75rem;
   --letterSpacing: 1px;
   --transition: 0.3s ease-in-out all;
   --max-width: 1120px;
@@ -452,6 +453,7 @@ footer
   align-items: center;
   margin: 0;
   z-index: 3;
+  overflow: hidden;
 }
 /* 
 =============
@@ -489,7 +491,7 @@ sidebar
   height: 95vh;
   width: 90vw;
   background: var(--navbarGradient);
-  border-radius: var(--borderRadius);
+  border-radius: var(--menuBorderRadius);
   display: flex;
   flex-direction: column;
   padding: 4rem 4rem;
@@ -587,9 +589,40 @@ end of sidebar
 .checked {
   padding: 0.35rem;
   background: var(--primaryGradient);
+}
+
+/* end of checkbox btn */
+
+/* settings submenu */
+.submenu {
+  position: absolute;
+  top: 5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: var(--menuBorderRadius);
+  padding: 2rem;
+  background: var(--navbarGradient);
+  z-index: 3;
+  color: var(--white);
   display: none;
 }
-.checked-show {
-  display: inline !important;
+.submenu::before {
+  content: "";
+  display: block;
+  width: 8px;
+  height: 8px;
+  background: var(--primaryGradient);
+  clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
 }
-/* end of checkbox btn */
+.show-submenu {
+  display: block;
+}
+.single-setting {
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+/* end of settings submenu */

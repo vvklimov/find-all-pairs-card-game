@@ -1,4 +1,5 @@
 // global imports
 import "./js/sidebarToggle.js";
-import "./js/navbar/navBtnHover.js";
-import "./js/sidebar/sidebarSetup.js";
+import "./js/navbarSetup.js";
+import "./js/sidebarSetup.js";
+import "./js/radioButtons.js";

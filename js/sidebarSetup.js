@@ -1,5 +1,6 @@
-import { getElement } from "../utils.js";
-import { navTags } from "../data.js";
+import { getElement } from "./utils.js";
+import { navTags } from "./data.js";
+import { displayRadioBtns } from "./radioButtons.js";
 
 const sidebarTagsUl = getElement(".sidebar-tags-ul");
 
@@ -12,13 +13,14 @@ sidebarTagsUl.innerHTML = navTags
               <ul>
               ${subtags
                 .map((subtag) => {
+                  const { subtagName, subtagClass } = subtag;
                   return `<li>
-                  <button class="settings-btn checkbox-btn">
+                  <button class="settings-btn checkbox-btn" data-tag="${tag}" data-subtag="${subtagClass}">
                     <div class="checkbox-btn-middle-part">
                       <div
-                        class="checkbox-btn-middle-part checked checked-show"
+                        class="checkbox-btn-middle-part"
                       ></div>
-                    </div></button>${subtag}
+                    </div></button>${subtagName}
                 </li>`;
                 })
                 .join("")}
@@ -27,5 +29,8 @@ sidebarTagsUl.innerHTML = navTags
             </li>`;
   })
   .join("");
+const radioBtns = [...sidebarTagsUl.querySelectorAll(".settings-btn")];
+displayRadioBtns(radioBtns);
+console.log(radioBtns);
 // to do:
 //  "checked show" class get from local storage
