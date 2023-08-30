@@ -1,6 +1,7 @@
 import { getElement } from "./utils.js";
 import { navTags } from "./data.js";
 import { displayRadioBtns } from "./radioButtons.js";
+import { activeSettings } from "./settings.js";
 const nav = getElement(".nav");
 const hero = getElement(".hero");
 const tagBtns = [...document.querySelectorAll(".nav-btn")];
@@ -27,10 +28,16 @@ tagBtns.forEach((btn) => {
             return subtags
               .map((subtag) => {
                 const { subtagName, subtagClass } = subtag;
+                let checked = "";
+                let activeSettingsArray = activeSettings();
+                if (activeSettingsArray.includes(subtagClass)) {
+                  checked = "checked";
+                }
+
                 return `<div class="single-setting">
         <button class="settings-btn checkbox-btn" data-tag="${tag}" data-subtag="${subtagClass}">
           <div class="checkbox-btn-middle-part">
-            <div class="checkbox-btn-middle-part"></div>
+            <div class="checkbox-btn-middle-part ${checked}"></div>
           </div>
         </button>
         <span>${subtagName}</span>

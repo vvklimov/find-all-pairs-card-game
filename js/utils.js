@@ -4,4 +4,17 @@ function getElement(selection) {
   throw new Error(`Please check ${selection} selector, no such element exists`);
 }
 
-export { getElement };
+const getStorageItem = (item) => {
+  let storageItem = localStorage.getItem(item);
+  if (storageItem) {
+    JSON.parse(localStorage.getItem(item));
+  } else {
+    storageItem = [];
+  }
+  return storageItem;
+};
+const setStorageItem = (name, item) => {
+  localStorage.setItem(name, JSON.stringify(item));
+};
+
+export { getElement, getStorageItem, setStorageItem };

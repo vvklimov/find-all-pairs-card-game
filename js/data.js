@@ -1,4 +1,4 @@
-export const navTags = [
+const navTags = [
   {
     tag: "difficulty",
     subtags: [
@@ -43,3 +43,10 @@ export const navTags = [
     ],
   },
 ];
+
+const defaultSettings = {
+  difficulty: "normal",
+  size: "16-cards",
+  themes: "dark-fantasy",
+};
+export { navTags, defaultSettings };

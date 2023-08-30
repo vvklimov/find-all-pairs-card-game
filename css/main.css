@@ -474,7 +474,7 @@ sidebar
   height: 100%;
   width: 100%;
   background: rgba(0, 0, 0, 0.5);
-
+  white-space: nowrap;
   place-items: center;
   visibility: hidden;
   z-index: -1;
