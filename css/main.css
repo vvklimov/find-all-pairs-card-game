@@ -395,11 +395,47 @@ navbar
 
   padding-bottom: 1rem;
 }
-.single-card {
+/*
+==============
+single card
+==============
+ */
+.single-card-container {
   margin: 0 auto;
   max-height: var(--cardsMaxHeight);
   max-width: var(--cardsMaxWidth);
+  width: var(--cardsMaxWidth);
+  height: var(--cardsMaxHeight);
   z-index: 3;
+  position: relative;
+}
+.single-card {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: all 0.5s ease;
+}
+.single-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+.single-card-front {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+}
+.single-card:hover {
+  transform: rotateY(180deg);
+}
+.card-img {
+  border-radius: 0.5rem;
+  height: 100%;
+  margin: 0;
 }
 .card-img {
   border-radius: 0.5rem;
