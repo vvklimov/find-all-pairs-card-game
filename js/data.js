@@ -55,8 +55,8 @@ const decks = [
     deckImg: "./assets/images/nature/img_1.jpg",
     cardsSrc: [
       { cardSrc: "./assets/images/nature/img_1.jpg" },
-      { cardSrc: "./assets/images/nature/img_3.jpg" },
       { cardSrc: "./assets/images/nature/img_2.jpg" },
+      { cardSrc: "./assets/images/nature/img_3.jpg" },
       { cardSrc: "./assets/images/nature/img_4.jpg" },
       { cardSrc: "./assets/images/nature/img_5.jpg" },
       { cardSrc: "./assets/images/nature/img_6.jpg" },
@@ -77,8 +77,8 @@ const decks = [
     deckImg: "./assets/images/nature/img_2.jpg",
     cardsSrc: [
       { cardSrc: "./assets/images/nature/img_1.jpg" },
-      { cardSrc: "./assets/images/nature/img_3.jpg" },
       { cardSrc: "./assets/images/nature/img_2.jpg" },
+      { cardSrc: "./assets/images/nature/img_3.jpg" },
       { cardSrc: "./assets/images/nature/img_4.jpg" },
       { cardSrc: "./assets/images/nature/img_5.jpg" },
       { cardSrc: "./assets/images/nature/img_6.jpg" },
@@ -99,8 +99,8 @@ const decks = [
     deckImg: "./assets/images/nature/img_3.jpg",
     cardsSrc: [
       { cardSrc: "./assets/images/nature/img_1.jpg" },
-      { cardSrc: "./assets/images/nature/img_3.jpg" },
       { cardSrc: "./assets/images/nature/img_2.jpg" },
+      { cardSrc: "./assets/images/nature/img_3.jpg" },
       { cardSrc: "./assets/images/nature/img_4.jpg" },
       { cardSrc: "./assets/images/nature/img_5.jpg" },
       { cardSrc: "./assets/images/nature/img_6.jpg" },
@@ -121,8 +121,8 @@ const decks = [
     deckImg: "./assets/images/nature/img_4.jpg",
     cardsSrc: [
       { cardSrc: "./assets/images/nature/img_1.jpg" },
-      { cardSrc: "./assets/images/nature/img_3.jpg" },
       { cardSrc: "./assets/images/nature/img_2.jpg" },
+      { cardSrc: "./assets/images/nature/img_3.jpg" },
       { cardSrc: "./assets/images/nature/img_4.jpg" },
       { cardSrc: "./assets/images/nature/img_5.jpg" },
       { cardSrc: "./assets/images/nature/img_6.jpg" },
@@ -143,8 +143,8 @@ const decks = [
     deckImg: "./assets/images/nature/img_5.jpg",
     cardsSrc: [
       { cardSrc: "./assets/images/nature/img_1.jpg" },
-      { cardSrc: "./assets/images/nature/img_3.jpg" },
       { cardSrc: "./assets/images/nature/img_2.jpg" },
+      { cardSrc: "./assets/images/nature/img_3.jpg" },
       { cardSrc: "./assets/images/nature/img_4.jpg" },
       { cardSrc: "./assets/images/nature/img_5.jpg" },
       { cardSrc: "./assets/images/nature/img_6.jpg" },

@@ -389,6 +389,7 @@ navbar
   margin: 0 auto;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
+  user-select: none;
 
   gap: 1rem;
   /* height: calc(100vh - 6rem - 1rem); */
@@ -414,13 +415,14 @@ single card
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transition: all 0.5s ease;
+  transition: all 0.3s ease;
 }
 .single-card-back {
   position: absolute;
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
+  cursor: pointer;
 }
 .single-card-front {
   position: absolute;
@@ -429,7 +431,7 @@ single card
   backface-visibility: hidden;
   transform: rotateY(180deg);
 }
-.single-card:hover {
+.single-card-flip {
   transform: rotateY(180deg);
 }
 .card-img {
