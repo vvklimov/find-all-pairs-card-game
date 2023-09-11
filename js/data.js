@@ -70,6 +70,9 @@ const decks = [
       { cardSrc: "./assets/images/nature/img_14.jpg" },
       { cardSrc: "./assets/images/nature/img_15.jpg" },
       { cardSrc: "./assets/images/nature/img_16.jpg" },
+      { cardSrc: "./assets/images/nature/img_17.jpg" },
+      { cardSrc: "./assets/images/nature/img_18.jpg" },
+      { cardSrc: "./assets/images/nature/img_19.jpg" },
     ],
   },
   {
@@ -92,6 +95,9 @@ const decks = [
       { cardSrc: "./assets/images/nature/img_14.jpg" },
       { cardSrc: "./assets/images/nature/img_15.jpg" },
       { cardSrc: "./assets/images/nature/img_16.jpg" },
+      { cardSrc: "./assets/images/nature/img_17.jpg" },
+      { cardSrc: "./assets/images/nature/img_18.jpg" },
+      { cardSrc: "./assets/images/nature/img_19.jpg" },
     ],
   },
   {
@@ -114,6 +120,9 @@ const decks = [
       { cardSrc: "./assets/images/nature/img_14.jpg" },
       { cardSrc: "./assets/images/nature/img_15.jpg" },
       { cardSrc: "./assets/images/nature/img_16.jpg" },
+      { cardSrc: "./assets/images/nature/img_17.jpg" },
+      { cardSrc: "./assets/images/nature/img_18.jpg" },
+      { cardSrc: "./assets/images/nature/img_19.jpg" },
     ],
   },
   {
@@ -136,6 +145,9 @@ const decks = [
       { cardSrc: "./assets/images/nature/img_14.jpg" },
       { cardSrc: "./assets/images/nature/img_15.jpg" },
       { cardSrc: "./assets/images/nature/img_16.jpg" },
+      { cardSrc: "./assets/images/nature/img_17.jpg" },
+      { cardSrc: "./assets/images/nature/img_18.jpg" },
+      { cardSrc: "./assets/images/nature/img_19.jpg" },
     ],
   },
   {
@@ -158,6 +170,9 @@ const decks = [
       { cardSrc: "./assets/images/nature/img_14.jpg" },
       { cardSrc: "./assets/images/nature/img_15.jpg" },
       { cardSrc: "./assets/images/nature/img_16.jpg" },
+      { cardSrc: "./assets/images/nature/img_17.jpg" },
+      { cardSrc: "./assets/images/nature/img_18.jpg" },
+      { cardSrc: "./assets/images/nature/img_19.jpg" },
     ],
   },
 ];

@@ -5,7 +5,7 @@ import { activeSettings } from "./settings.js";
 
 const sidebarTagsUl = getElement(".sidebar-tags-ul");
 const radioBtns = [...sidebarTagsUl.querySelectorAll(".settings-btn")];
-displayRadioBtns(radioBtns);
+// displayRadioBtns(radioBtns);
 sidebarTagsUl.innerHTML = navTags
   .map((item) => {
     const { tag, subtags } = item;

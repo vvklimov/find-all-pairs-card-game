@@ -1,5 +1,5 @@
 import { getElement } from "./utils.js";
-
+import { displayRadioBtns } from "./radioButtons.js";
 const closeBtn = getElement(".close-btn");
 const sidebar = getElement(".sidebar-wrapper");
 const toggleBtn = getElement(".toggle-btn");
@@ -23,3 +23,12 @@ maxWidth.addEventListener("change", () => {
     sidebar.classList.remove("show");
   }
 });
+
+// sidebar.addEventListener("click", (e) => {
+//   let settingsBtn = e.target.parentElement.parentElement;
+//   if (settingsBtn.classList.contains("settings-btn")) {
+//     displayRadioBtns(settingsBtn);
+//   }
+// });
+//  TO DO
+//  fix bug with inactive sidebar buttons
