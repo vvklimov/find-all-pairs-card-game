@@ -6,7 +6,14 @@ const editSettings = (id, subtagClass) => {
   // contvertion str to object
   settings = JSON.parse(settings);
   if (settings.hasOwnProperty(id)) {
-    settings[id] = subtagClass;
+    if (id !== "other") {
+      settings[id] = subtagClass;
+    } else {
+      // toggling value of other settings
+      if (settings[id]) {
+        settings[id][subtagClass] = !settings[id][subtagClass];
+      }
+    }
     setStorageItem("settings", settings);
   }
 
@@ -25,8 +32,9 @@ const activeSettings = () => {
   // convertion str to object
   if (settings.length !== 0) {
     settings = JSON.parse(settings);
-    const { difficulty, size, themes } = settings;
-    return [difficulty, size, themes];
+    const { difficulty, size, themes, other } = settings;
+    // const { "show-rules": showRules, "sound-effects": soundEffects } = other;
+    return [difficulty, size, themes, other];
   }
 };
 export { editSettings, setupSettings, activeSettings };

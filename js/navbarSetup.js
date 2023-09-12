@@ -1,7 +1,7 @@
-import { getElement } from "./utils.js";
+import { getElement, setCheckedState } from "./utils.js";
 import { navTags } from "./data.js";
 import { displayRadioBtns } from "./radioButtons.js";
-import { activeSettings } from "./settings.js";
+
 const nav = getElement(".nav");
 const hero = getElement(".hero");
 const tagBtns = [...document.querySelectorAll(".nav-btn")];
@@ -27,12 +27,10 @@ tagBtns.forEach((btn) => {
           if (tag === text)
             return subtags
               .map((subtag) => {
-                const { subtagName, subtagClass } = subtag;
-                let checked = "";
-                let activeSettingsArray = activeSettings();
-                if (activeSettingsArray.includes(subtagClass)) {
-                  checked = "checked";
-                }
+                const { subtagName, subtagClass, checked } = setCheckedState(
+                  tag,
+                  subtag
+                );
 
                 return `<div class="single-setting">
         <button class="settings-btn checkbox-btn" data-tag="${tag}" data-subtag="${subtagClass}">

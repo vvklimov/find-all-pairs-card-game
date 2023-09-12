@@ -1,3 +1,4 @@
+import { activeSettings } from "./settings.js";
 function getElement(selection) {
   const element = document.querySelector(`${selection}`);
   if (element) return element;
@@ -17,4 +18,20 @@ const setStorageItem = (name, item) => {
   localStorage.setItem(name, JSON.stringify(item));
 };
 
-export { getElement, getStorageItem, setStorageItem };
+const setCheckedState = (tag, subtag) => {
+  const { subtagName, subtagClass } = subtag;
+  let checked = "";
+  let activeSettingsArray = activeSettings();
+
+  if (activeSettingsArray.includes(subtagClass)) {
+    checked = "checked";
+  } else if (tag === "other") {
+    const { subtagClass } = subtag;
+    const subtagValue = activeSettingsArray[3][subtagClass];
+    if (subtagValue) {
+      checked = "checked";
+    }
+  }
+  return { checked, subtagName, subtagClass };
+};
+export { getElement, getStorageItem, setStorageItem, setCheckedState };

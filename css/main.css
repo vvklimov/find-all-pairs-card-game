@@ -459,6 +459,14 @@ sidebar
 
   color: rgba(255, 255, 255, 1);
 }
+.sidebar-tags-ul {
+  overflow: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.sidebar-tags-ul::-webkit-scrollbar {
+  display: none;
+}
 .sidebar-tags > ul > li {
   text-transform: capitalize;
   /* text-indent: 4rem; */
@@ -481,7 +489,7 @@ sidebar
   max-width: 250px;
 }
 
-@media screen and (min-width: 772px) {
+@media screen and (min-width: 925px) {
   .toggle-btn {
     display: none;
   }

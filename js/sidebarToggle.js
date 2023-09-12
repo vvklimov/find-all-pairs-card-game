@@ -13,22 +13,15 @@ closeBtn.addEventListener("click", () => {
 toggleBtn.addEventListener("click", () => {
   if (!sidebar.classList.contains("show")) {
     sidebar.classList.add("show");
+    const settingsBtn = [...sidebar.querySelectorAll(".settings-btn")];
+    displayRadioBtns(settingsBtn);
   }
 });
 
 // closes sidebar if resolution is matched
-const maxWidth = window.matchMedia("(min-width: 772px)");
+const maxWidth = window.matchMedia("(min-width: 925px)");
 maxWidth.addEventListener("change", () => {
   if (sidebar.classList.contains("show")) {
     sidebar.classList.remove("show");
   }
 });
-
-// sidebar.addEventListener("click", (e) => {
-//   let settingsBtn = e.target.parentElement.parentElement;
-//   if (settingsBtn.classList.contains("settings-btn")) {
-//     displayRadioBtns(settingsBtn);
-//   }
-// });
-//  TO DO
-//  fix bug with inactive sidebar buttons

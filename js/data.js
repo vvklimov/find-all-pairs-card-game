@@ -42,12 +42,26 @@ const navTags = [
       { subtagName: "surprise me", subtagClass: "surprise-me" },
     ],
   },
+  {
+    tag: "other",
+    subtags: [
+      {
+        subtagName: "show rules",
+        subtagClass: "show-rules",
+      },
+      {
+        subtagName: "sound effects",
+        subtagClass: "sound-effects",
+      },
+    ],
+  },
 ];
 
 const defaultSettings = {
   difficulty: "normal",
   size: "16-cards",
   themes: "dark-fantasy",
+  other: { "show-rules": true, "sound-effects": true },
 };
 const decks = [
   {

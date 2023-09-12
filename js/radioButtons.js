@@ -18,19 +18,30 @@ function displayRadioBtns(radioBtns) {
       const radioBtnsWithSubTag = [
         ...document.querySelectorAll(`[data-subtag="${subtagClass}"]`),
       ];
-
-      radioBtnsWithTag.forEach((btn) => {
-        const btnDOM = btn.childNodes[1].childNodes[1];
-        if (btnDOM.classList.contains("checked")) {
-          btnDOM.classList.remove("checked");
-        }
-      });
-      radioBtnsWithSubTag.forEach((btn) => {
-        const btnDOM = btn.childNodes[1].childNodes[1];
-        if (!btnDOM.classList.contains("checked")) {
-          btnDOM.classList.add("checked");
-        }
-      });
+      // console.log(radioBtnsWithTag);
+      // console.log(radioBtnWithSubTag);
+      if (id !== "other") {
+        radioBtnsWithTag.forEach((btn) => {
+          const btnDOM = btn.childNodes[1].childNodes[1];
+          if (btnDOM.classList.contains("checked")) {
+            btnDOM.classList.remove("checked");
+          }
+        });
+        radioBtnsWithSubTag.forEach((btn) => {
+          const btnDOM = btn.childNodes[1].childNodes[1];
+          if (!btnDOM.classList.contains("checked")) {
+            btnDOM.classList.add("checked");
+          }
+        });
+      } else {
+        // SOMEBODY EXPLAIN ME WHY NEXT 2 LINES REQUIRE RE-HOVERING TO DISPLAY CHANGES, BUT WITH forEach IT WORKS AS IT SHOULD
+        // const btnDOM = radioBtnsWithSubTag[0].childNodes[1].childNodes[1];
+        // btnDOM.classList.toggle("checked");
+        radioBtnsWithSubTag.forEach((btn) => {
+          const btnDOM = btn.childNodes[1].childNodes[1];
+          btnDOM.classList.toggle("checked");
+        });
+      }
     });
   });
 }
