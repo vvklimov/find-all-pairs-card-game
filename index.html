@@ -18,6 +18,7 @@
     <title>Find All Pairs</title>
   </head>
   <body>
+    <!-- <script type="module" src="./js/loading.js"></script> -->
     <!-- navbar -->
     <nav class="nav">
       <div class="nav-center">
@@ -90,6 +91,31 @@
 
     <!-- sumenu -->
     <aside class="submenu"></aside>
+    <!-- page loading -->
+    <div class="page-loading">
+      <div class="loading-spinner-wrapper">
+        <div class="loading-spinner"></div>
+        <h1 class="tag-btn gradient-hover-effect">Loading...</h1>
+      </div>
+      <article class="rules">
+        <h3>rules are simple:</h3>
+        <p>find all card pairs before time is up</p>
+      </article>
+    </div>
+
+    <div class="sidebar-wrapper game-menu">
+      <aside class="sidebar">
+        <button class="close-btn btn">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="text-content">
+          <h4>start a new game?</h4>
+        </div>
+        <div class="btn-container">
+          <button class="btn start-new-game-btn">start new game</button>
+        </div>
+      </aside>
+    </div>
 
     <script type="module" src="./index.js"></script>
   </body>

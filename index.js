@@ -5,3 +5,5 @@ import "./js/sidebarSetup.js";
 import "./js/radioButtons.js";
 import "./js/deckSetup.js";
 import "./js/logic.js";
+import "./js/loading.js";
+import "./js/gameMenu.js";

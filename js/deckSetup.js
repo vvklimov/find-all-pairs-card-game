@@ -5,7 +5,13 @@ import { IndexSelection } from "./randomizer.js";
 export const deckContainer = getElement(".deck-container");
 // extracting current settings
 const settings = JSON.parse(getStorageItem("settings"));
-const { themes: currentTheme, size, difficulty: currentDifficulty } = settings;
+const {
+  themes: currentTheme,
+  size,
+  difficulty: currentDifficulty,
+  other,
+} = settings;
+const loading = getElement(".page-loading");
 export const currentSize = Number(size.slice(0, 2));
 // export const currentSize = 16;
 
@@ -91,3 +97,7 @@ function setupGrid6x6and9x4(currentSize) {
     deckContainer.style.maxWidth = `${deckContainer.clientHeight}px`;
   }
 }
+
+window.addEventListener("load", function () {
+  loading.style.display = "none";
+});
