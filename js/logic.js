@@ -1,6 +1,8 @@
 import "./deckSetup.js";
 import { deckContainer, currentSize } from "./deckSetup.js";
 import { getElement } from "./utils.js";
+import { gameFSM } from "./gameFSM.js";
+import { gameStates } from "./data.js";
 
 const singleCards = [...document.querySelectorAll(".single-card")];
 let preveiousCardId = false;
@@ -9,6 +11,7 @@ let eventListenerOnPause = false;
 let pairsToWin = currentSize / 2;
 
 deckContainer.addEventListener("click", (e) => {
+  gameFSM(gameStates.game);
   if (!eventListenerOnPause) {
     const singleCard = e.target.parentElement.parentElement;
     const singleCardBackSide = e.target.parentElement;
@@ -61,9 +64,14 @@ function SetFoundFlag() {
     }
   });
 }
-
+// /////////////////////////
+// handle gameoverFailure when timer will be done
+// ////////////////////////
 function GameOver() {
   pairsToWin--;
-  if (pairsToWin === 0) return console.log(`you won`);
+  if (pairsToWin === 0) {
+    gameFSM(gameStates.gameoverSuccess);
+    return console.log(`you won`);
+  }
   return pairsToWin;
 }

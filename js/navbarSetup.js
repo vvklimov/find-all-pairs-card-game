@@ -1,6 +1,8 @@
 import { getElement, setCheckedState } from "./utils.js";
 import { navTags } from "./data.js";
 import { displayRadioBtns } from "./radioButtons.js";
+import { gameStates } from "./data.js";
+import { gameFSM } from "./gameFSM.js";
 
 const nav = getElement(".nav");
 const hero = getElement(".hero");
@@ -10,6 +12,7 @@ const settingsSubmenu = getElement(".submenu");
 // navbar setup
 tagBtns.forEach((btn) => {
   btn.addEventListener("mouseover", (e) => {
+    gameFSM(gameStates.pause);
     if (e.target.classList.contains("nav-btn")) {
       removeGradient();
       hideSettingsSubmenu();
@@ -66,6 +69,7 @@ function hideSettingsSubmenu() {
 hero.addEventListener("mouseover", function () {
   removeGradient();
   hideSettingsSubmenu();
+  gameFSM(gameStates.resume);
 });
 nav.addEventListener("mouseover", function (e) {
   if (

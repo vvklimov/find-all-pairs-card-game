@@ -190,4 +190,12 @@ const decks = [
     ],
   },
 ];
-export { navTags, defaultSettings, decks };
+const gameStates = {
+  idle: "idle",
+  pause: "pause",
+  resume: "resume",
+  game: "game",
+  gameoverSuccess: "gameoverSuccess",
+  gameoverFailure: "gameoverFailure",
+};
+export { navTags, defaultSettings, decks, gameStates };

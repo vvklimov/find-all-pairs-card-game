@@ -1,6 +1,7 @@
 import { getElement, getStorageItem } from "./utils.js";
-import { decks } from "./data.js";
+import { decks, gameStates } from "./data.js";
 import { IndexSelection } from "./randomizer.js";
+import { gameFSM } from "./gameFSM.js";
 
 export const deckContainer = getElement(".deck-container");
 // extracting current settings
@@ -18,7 +19,7 @@ export const currentSize = Number(size.slice(0, 2));
 function deckSetup(currentTheme, numberOfPairs, currentDifficulty) {
   deckContainer.innerHTML = decks
     .map((deck) => {
-      // desctructing array
+      // destructuring array
       const { deckName, deckImg, cardsSrc } = deck;
       if (currentTheme === deckName) {
         let selectedCards = IndexSelection(currentSize, cardsSrc.length);
@@ -99,5 +100,6 @@ function setupGrid6x6and9x4(currentSize) {
 }
 
 window.addEventListener("load", function () {
+  gameFSM(gameStates.idle);
   loading.style.display = "none";
 });

@@ -7,3 +7,4 @@ import "./js/deckSetup.js";
 import "./js/logic.js";
 import "./js/loading.js";
 import "./js/gameMenu.js";
+import "./js/gameFSM.js";

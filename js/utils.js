@@ -1,4 +1,5 @@
 import { activeSettings } from "./settings.js";
+import { gameStates } from "./data.js";
 function getElement(selection) {
   const element = document.querySelector(`${selection}`);
   if (element) return element;
@@ -14,6 +15,7 @@ const getStorageItem = (item) => {
   }
   return storageItem;
 };
+
 const setStorageItem = (name, item) => {
   localStorage.setItem(name, JSON.stringify(item));
 };
@@ -34,4 +36,5 @@ const setCheckedState = (tag, subtag) => {
   }
   return { checked, subtagName, subtagClass };
 };
+
 export { getElement, getStorageItem, setStorageItem, setCheckedState };
