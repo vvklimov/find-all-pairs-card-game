@@ -8,7 +8,7 @@ sidebarTagsUl.innerHTML = navTags
   .map((item) => {
     const { tag, subtags } = item;
     return `<li>
-              <h4 class="tag-btn gradient-hover-effect">${tag}</h4>
+              <h4 class="tag-btn tag-btn-gradient gradient-hover-effect">${tag}</h4>
               <ul>
               ${subtags
                 .map((subtag) => {

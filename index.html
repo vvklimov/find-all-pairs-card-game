@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="./css/main.css" />
     <!-- icon -->
     <link rel="shortcut icon" href="./assets/images/find all pairs icon.png" />
-    <title>Find All Pairs</title>
+    <title>find all pairs</title>
   </head>
   <body>
     <!-- <script type="module" src="./js/loading.js"></script> -->
@@ -29,16 +29,16 @@
         </div>
         <ul class="nav-tags">
           <li>
-            <button class="tag-btn nav-btn">difficulty</button>
+            <button class="tag-btn tag-btn-gradient nav-btn">difficulty</button>
           </li>
           <li>
-            <button class="tag-btn nav-btn">size</button>
+            <button class="tag-btn tag-btn-gradient nav-btn">size</button>
           </li>
           <li>
-            <button class="tag-btn nav-btn">themes</button>
+            <button class="tag-btn tag-btn-gradient nav-btn">themes</button>
           </li>
           <li>
-            <button class="tag-btn nav-btn">other</button>
+            <button class="tag-btn tag-btn-gradient nav-btn">other</button>
           </li>
         </ul>
       </div>
@@ -46,13 +46,56 @@
     <!-- end of navbar -->
     <!-- page content -->
     <div class="hero">
+      <!-- timer container -->
       <div class="timer-container">
-        <!-- todo -->
-        <p>timer1</p>
+        <!-- target time -->
+        <div class="timer-wrapper">
+          <div class="target-time">
+            <div class="timer-format">
+              <h5 class="tag-btn-gradient gradient-hover-effect">
+                target time:
+              </h5>
+              <h5 class="mins">10</h5>
+              <h5>:</h5>
+              <h5 class="secs">13</h5>
+              <h5>:</h5>
+              <h5 class="msecs">34</h5>
+            </div>
+          </div>
+        </div>
+
+        <!--end of target time  -->
+        <!-- current game time -->
+        <div class="timer-wrapper">
+          <div class="current-game-time">
+            <div class="timer-format">
+              <h5 class="tag-btn-gradient gradient-hover-effect">time:</h5>
+              <h5 class="mins">10</h5>
+              <h5>:</h5>
+              <h5 class="secs">13</h5>
+              <h5>:</h5>
+              <h5 class="msecs">34</h5>
+            </div>
+          </div>
+        </div>
+        <!--end of current game time  -->
+        <!-- best time -->
+        <div class="timer-wrapper">
+          <div class="best-time">
+            <div class="timer-format">
+              <h5 class="tag-btn-gradient gradient-hover-effect">best time:</h5>
+              <h5 class="mins">10</h5>
+              <h5>:</h5>
+              <h5 class="secs">13</h5>
+              <h5>:</h5>
+              <h5 class="msecs">34</h5>
+            </div>
+          </div>
+        </div>
+        <!--end of best time  -->
       </div>
+      <!-- end of timer container -->
       <div class="hero-container">
-        <!-- timer container -->
-        <!-- end of timer container -->
         <div class="deck-container"></div>
       </div>
     </div>
@@ -66,7 +109,7 @@
           <a
             target="_blank"
             href="https://youllneverreachme.github.io/"
-            class="tag-btn gradient-hover-effect"
+            class="tag-btn tag-btn-gradient gradient-hover-effect"
             >Vladislav Klimov</a
           >
         </span>
