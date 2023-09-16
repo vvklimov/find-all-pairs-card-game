@@ -1,51 +1,81 @@
-import { getElement } from "./utils.js";
-import { activeSettings, editSettings, setupSettings } from "./settings.js";
-
-function displayRadioBtns(radioBtns) {
-  setupSettings();
-  radioBtns.map((radioBtn) => {
-    radioBtn.addEventListener("click", (e) => {
-      // extracting data-tag data-subtag
-      const id = e.currentTarget.dataset.tag;
-      const subtagClass = e.currentTarget.dataset.subtag;
-      // console.log(`id is ${id}`);
-      // console.log(`subTag is ${subtagClass}`);
-      editSettings(id, subtagClass);
-      // selecting elements with data-tag data-subtag
-      const radioBtnsWithTag = [
-        ...document.querySelectorAll(`[data-tag="${id}"]`),
-      ];
-      const radioBtnsWithSubTag = [
-        ...document.querySelectorAll(`[data-subtag="${subtagClass}"]`),
-      ];
-      // console.log(radioBtnsWithTag);
-      // console.log(radioBtnWithSubTag);
-      if (id !== "other") {
-        radioBtnsWithTag.forEach((btn) => {
-          const btnDOM = btn.childNodes[1].childNodes[1];
-          if (btnDOM.classList.contains("checked")) {
-            btnDOM.classList.remove("checked");
-          }
-        });
-        radioBtnsWithSubTag.forEach((btn) => {
-          const btnDOM = btn.childNodes[1].childNodes[1];
-          if (!btnDOM.classList.contains("checked")) {
-            btnDOM.classList.add("checked");
-          }
-        });
-      } else {
-        // SOMEBODY EXPLAIN ME WHY NEXT 2 LINES REQUIRE RE-HOVERING TO DISPLAY CHANGES, BUT WITH forEach IT WORKS AS IT SHOULD
-        // const btnDOM = radioBtnsWithSubTag[0].childNodes[1].childNodes[1];
-        // btnDOM.classList.toggle("checked");
-        radioBtnsWithSubTag.forEach((btn) => {
-          const btnDOM = btn.childNodes[1].childNodes[1];
-          btnDOM.classList.toggle("checked");
-        });
+import { getElement, getStorageItem } from "./utils.js";
+import { activeSettings, editSettings } from "./settings.js";
+import { gameStates } from "./data.js";
+function radioBtnClickHandler(e) {
+  // extracting data-tag data-subtag
+  const id = e.currentTarget.dataset.tag;
+  const subtagClass = e.currentTarget.dataset.subtag;
+  // console.log(`id is ${id}`);
+  // console.log(`subTag is ${subtagClass}`);
+  // JSON.stringify because we cannot compare arrays, but we can compare strings
+  //Object.values(object) to get values of an object
+  // next few lines are for handling case if user clicks already active button
+  const previousSettings = JSON.stringify(activeSettings());
+  const currentSettings = JSON.stringify(
+    Object.values(editSettings(id, subtagClass))
+  );
+  if (previousSettings === currentSettings) {
+    return;
+  }
+  // selecting elements with data-tag data-subtag
+  const radioBtnsWithTag = [...document.querySelectorAll(`[data-tag="${id}"]`)];
+  const radioBtnsWithSubTag = [
+    ...document.querySelectorAll(`[data-subtag="${subtagClass}"]`),
+  ];
+  // console.log(radioBtnsWithTag);
+  // console.log(radioBtnWithSubTag);
+  if (id !== "other") {
+    radioBtnsWithTag.forEach((btn) => {
+      const btnDOM = btn.childNodes[1].childNodes[1];
+      if (btnDOM.classList.contains("checked")) {
+        btnDOM.classList.remove("checked");
       }
     });
+    radioBtnsWithSubTag.forEach((btn) => {
+      const btnDOM = btn.childNodes[1].childNodes[1];
+      if (!btnDOM.classList.contains("checked")) {
+        btnDOM.classList.add("checked");
+      }
+    });
+  } else {
+    // SOMEBODY EXPLAIN ME WHY NEXT 2 LINES REQUIRE RE-HOVERING TO DISPLAY CHANGES, BUT WITH forEach IT WORKS AS IT SHOULD
+    // const btnDOM = radioBtnsWithSubTag[0].childNodes[1].childNodes[1];
+    // btnDOM.classList.toggle("checked");
+    radioBtnsWithSubTag.forEach((btn) => {
+      const btnDOM = btn.childNodes[1].childNodes[1];
+      btnDOM.classList.toggle("checked");
+    });
+  }
+  let currentGameState = getStorageItem("currentGameState");
+  if (currentGameState) {
+    currentGameState = JSON.parse(currentGameState);
+    if (currentGameState === gameStates.idle) {
+      if (id === "size" || id === "themes") {
+        location.reload();
+      } else if (id === "difficulty") {
+        /////////////////////
+        // to do setTimers();
+        ////////////////////
+        // to do sound effects
+        //////////////////////
+      }
+    }
+  }
+}
+// add event listeners to radio buttons
+function addEventListenersToRadioBtns(radioBtns) {
+  radioBtns.forEach((radioBtn) => {
+    radioBtn.addEventListener("click", radioBtnClickHandler);
+  });
+}
+
+// remove event listeners from radio buttons
+function removeEventListenersFromRadioBtns(radioBtns) {
+  radioBtns.forEach((radioBtn) => {
+    radioBtn.removeEventListener("click", radioBtnClickHandler);
   });
 }
 
 // setStorageItem("settings", defaultSettings);
 
-export { displayRadioBtns };
+export { addEventListenersToRadioBtns, removeEventListenersFromRadioBtns };

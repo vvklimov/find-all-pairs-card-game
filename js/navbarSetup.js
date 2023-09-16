@@ -1,6 +1,9 @@
 import { getElement, setCheckedState } from "./utils.js";
 import { navTags } from "./data.js";
-import { displayRadioBtns } from "./radioButtons.js";
+import {
+  addEventListenersToRadioBtns,
+  removeEventListenersFromRadioBtns,
+} from "./radioButtons.js";
 import { gameStates } from "./data.js";
 import { gameFSM } from "./gameFSM.js";
 
@@ -49,7 +52,8 @@ tagBtns.forEach((btn) => {
         .join("");
       // radio btns functionality
       const radioBtns = [...settingsSubmenu.querySelectorAll(".settings-btn")];
-      displayRadioBtns(radioBtns);
+      removeEventListenersFromRadioBtns(radioBtns);
+      addEventListenersToRadioBtns(radioBtns);
     }
   });
 });

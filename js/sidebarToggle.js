@@ -1,5 +1,8 @@
 import { getElement } from "./utils.js";
-import { displayRadioBtns } from "./radioButtons.js";
+import {
+  addEventListenersToRadioBtns,
+  removeEventListenersFromRadioBtns,
+} from "./radioButtons.js";
 import { gameStates } from "./data.js";
 import { gameFSM } from "./gameFSM.js";
 const closeBtn = getElement(".close-btn");
@@ -17,7 +20,8 @@ toggleBtn.addEventListener("click", () => {
   if (!sidebar.classList.contains("show")) {
     sidebar.classList.add("show");
     const settingsBtn = [...sidebar.querySelectorAll(".settings-btn")];
-    displayRadioBtns(settingsBtn);
+    removeEventListenersFromRadioBtns(settingsBtn);
+    addEventListenersToRadioBtns(settingsBtn);
     gameFSM(gameStates.pause);
   }
 });

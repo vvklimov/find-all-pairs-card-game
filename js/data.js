@@ -198,4 +198,28 @@ const gameStates = {
   gameoverSuccess: "gameoverSuccess",
   gameoverFailure: "gameoverFailure",
 };
-export { navTags, defaultSettings, decks, gameStates };
+
+const timers = [
+  {
+    timerClass: "target-time",
+    timerName: "target time:",
+    timerUnitMin: "00",
+    timerUnitSec: "30",
+    timerUnitMsec: "00",
+  },
+  {
+    timerClass: "current-game-time",
+    timerName: "time:",
+    timerUnitMin: "00",
+    timerUnitSec: "00",
+    timerUnitMsec: "00",
+  },
+  {
+    timerClass: "best-time",
+    timerName: "best time:",
+    timerUnitMin: "--",
+    timerUnitSec: "--",
+    timerUnitMsec: "--",
+  },
+];
+export { navTags, defaultSettings, decks, gameStates, timers };

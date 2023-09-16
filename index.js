@@ -8,3 +8,4 @@ import "./js/logic.js";
 import "./js/loading.js";
 import "./js/gameMenu.js";
 import "./js/gameFSM.js";
+import "./js/timers.js";

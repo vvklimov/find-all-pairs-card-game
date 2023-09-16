@@ -637,27 +637,49 @@ end of sidebar
   padding: 0.4rem 0.5rem;
   border-radius: var(--menuBorderRadius);
 }
+.timer-unit-format {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.timer-unit-format > .gradient-hover-effect {
+  text-transform: lowercase;
+  margin-top: -0.31rem;
+  font-size: 0.55rem;
+}
 
-.timer-format > h5 {
+.timer-format h5 {
   /* line-height: 4rem; */
   font-size: 0.6rem;
   margin: 0;
   margin-right: 0.15rem;
 }
 @media screen and (min-width: 370px) {
-  .timer-format > h5 {
+  .timer-format h5 {
     font-size: 0.75rem;
+  }
+  .timer-unit-format > .gradient-hover-effect {
+    font-size: 0.65rem;
   }
 }
 @media screen and (min-width: 500px) {
-  .timer-format > h5 {
+  .timer-format h5 {
     font-size: 1rem;
     margin-right: 0.2rem;
   }
+  .timer-unit-format > .gradient-hover-effect {
+    font-size: 0.85rem;
+  }
 }
 @media screen and (min-width: 700px) {
-  .timer-format > h5 {
+  .timer-format h5 {
     font-size: 1.25rem;
+  }
+  .timer-format {
+    margin-top: 0.3rem;
+  }
+  .timer-unit-format > .gradient-hover-effect {
+    font-size: 1rem;
   }
 }
 

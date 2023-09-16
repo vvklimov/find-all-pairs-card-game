@@ -16,15 +16,15 @@ const editSettings = (id, subtagClass) => {
     }
     setStorageItem("settings", settings);
   }
-
+  return settings;
   //
 };
 
 const setupSettings = () => {
   let settings = getStorageItem("settings");
   if (settings.length === 0) {
-    setStorageItem("settings", defaultSettings);
-  }
+    return setStorageItem("settings", defaultSettings);
+  } else return JSON.parse(settings);
 };
 
 const activeSettings = () => {
@@ -37,4 +37,6 @@ const activeSettings = () => {
     return [difficulty, size, themes, other];
   }
 };
+
+window.addEventListener("DOMContentLoaded", setupSettings);
 export { editSettings, setupSettings, activeSettings };
