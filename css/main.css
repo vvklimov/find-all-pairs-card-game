@@ -336,6 +336,12 @@ navbar
 .grid-9x4 {
   grid-template-columns: repeat(9, auto);
 }
+.grid-5x4 {
+  grid-template-columns: repeat(5, auto);
+}
+.grid-6x4 {
+  grid-template-columns: repeat(6, auto);
+}
 /*
 ==============
 single card

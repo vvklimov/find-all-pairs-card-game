@@ -93,9 +93,24 @@ function setupGrid6x6and9x4(currentSize) {
     } else if (window.innerWidth > 1000) {
       deckContainer.classList.add("grid-9x4");
     }
-  }
-  if (currentSize === 16) {
+  } else if (currentSize === 16) {
     deckContainer.style.maxWidth = `${deckContainer.clientHeight}px`;
+  } else if (currentSize === 20) {
+    if (deckContainer.classList.contains("grid-5x4")) {
+      deckContainer.classList.remove("grid-5x4");
+    }
+    deckContainer.style.maxWidth = `${deckContainer.clientHeight}px`;
+    if (window.innerWidth > 600) {
+      deckContainer.classList.add("grid-5x4");
+    }
+  } else if (currentSize === 24) {
+    if (deckContainer.classList.contains("grid-6x4")) {
+      deckContainer.classList.remove("grid-6x4");
+    }
+    deckContainer.style.maxWidth = `${(deckContainer.clientHeight * 8) / 7}px`;
+    if (window.innerWidth > 700) {
+      deckContainer.classList.add("grid-6x4");
+    }
   }
 }
 

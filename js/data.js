@@ -24,6 +24,14 @@ const navTags = [
         subtagClass: "16-cards",
       },
       {
+        subtagName: "20 cards",
+        subtagClass: "20-cards",
+      },
+      {
+        subtagName: "24 cards",
+        subtagClass: "24-cards",
+      },
+      {
         subtagName: "36 cards",
         subtagClass: "36-cards",
       },
