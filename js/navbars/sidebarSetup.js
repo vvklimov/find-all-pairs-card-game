@@ -1,6 +1,6 @@
-import { getElement, setCheckedState } from "./utils.js";
-import { navTags } from "./data.js";
-import { setupSettings } from "./settings.js";
+import { getElement, setCheckedState } from "../utils.js";
+import { navTags } from "../data.js";
+import { setupSettings } from "../settings.js";
 
 const sidebarTagsUl = getElement(".sidebar-tags-ul");
 setupSettings();

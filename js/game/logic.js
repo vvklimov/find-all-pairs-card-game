@@ -1,8 +1,8 @@
 import "./deckSetup.js";
 import { deckContainer, currentSize } from "./deckSetup.js";
-import { getElement } from "./utils.js";
+import { getElement, getStorageItem } from "../utils.js";
 import { gameFSM } from "./gameFSM.js";
-import { gameStates } from "./data.js";
+import { gameStates } from "../data.js";
 
 const singleCards = [...document.querySelectorAll(".single-card")];
 let preveiousCardId = false;
@@ -11,8 +11,14 @@ let eventListenerOnPause = false;
 let pairsToWin = currentSize / 2;
 
 deckContainer.addEventListener("click", (e) => {
-  gameFSM(gameStates.game);
-  if (!eventListenerOnPause) {
+  let currentGameState = getStorageItem("currentGameState");
+  currentGameState = JSON.parse(currentGameState);
+  // console.log(JSON.stringify(currentGameState));
+  if (
+    !eventListenerOnPause &&
+    currentGameState !== gameStates.gameoverFailure &&
+    currentGameState !== gameStates.gameoverSuccess
+  ) {
     const singleCard = e.target.parentElement.parentElement;
     const singleCardBackSide = e.target.parentElement;
 
@@ -20,6 +26,7 @@ deckContainer.addEventListener("click", (e) => {
       singleCard.classList.contains("single-card") &&
       singleCardBackSide.classList.contains("single-card-back")
     ) {
+      gameFSM(gameStates.game);
       singleCard.classList.add("single-card-flip");
       // if we flip first card of pair
       if (!preveiousCardId) {

@@ -1,6 +1,11 @@
-import { getElement, getStorageItem } from "./utils.js";
-import { activeSettings, editSettings } from "./settings.js";
-import { gameStates } from "./data.js";
+import { getElement, getStorageItem } from "../utils.js";
+import { activeSettings, editSettings } from "../settings.js";
+import { gameStates } from "../data.js";
+import {
+  timersSetup,
+  getTargetTimeValuesName,
+} from "../game/timers/timersSetup.js";
+import { currentDifficulty, currentSize } from "../game/deckSetup.js";
 function radioBtnClickHandler(e) {
   // extracting data-tag data-subtag
   const id = e.currentTarget.dataset.tag;
@@ -11,9 +16,8 @@ function radioBtnClickHandler(e) {
   //Object.values(object) to get values of an object
   // next few lines are for handling case if user clicks already active button
   const previousSettings = JSON.stringify(activeSettings());
-  const currentSettings = JSON.stringify(
-    Object.values(editSettings(id, subtagClass))
-  );
+  const currentSettingsObj = editSettings(id, subtagClass);
+  const currentSettings = JSON.stringify(Object.values(currentSettingsObj));
   if (previousSettings === currentSettings) {
     return;
   }
@@ -53,8 +57,7 @@ function radioBtnClickHandler(e) {
       if (id === "size" || id === "themes") {
         location.reload();
       } else if (id === "difficulty") {
-        /////////////////////
-        // to do setTimers();
+        timersSetup(getTargetTimeValuesName());
         ////////////////////
         // to do sound effects
         //////////////////////

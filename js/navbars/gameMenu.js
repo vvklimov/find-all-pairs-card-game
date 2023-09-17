@@ -1,6 +1,6 @@
-import { gameStates } from "./data.js";
-import { getElement } from "./utils.js";
-import { gameFSM } from "./gameFSM.js";
+import { gameStates } from "../data.js";
+import { getElement } from "../utils.js";
+import { gameFSM } from "../game/gameFSM.js";
 const newGameBtns = [...document.querySelectorAll(".new-game-btn")];
 const gameMenu = getElement(".game-menu");
 

@@ -1,5 +1,5 @@
-import { getElement, getStorageItem } from "./utils.js";
-import { decks, gameStates } from "./data.js";
+import { getElement, getStorageItem } from "../utils.js";
+import { decks, gameStates } from "../data.js";
 import { IndexSelection } from "./randomizer.js";
 import { gameFSM } from "./gameFSM.js";
 
@@ -13,7 +13,7 @@ const {
   other,
 } = settings;
 const loading = getElement(".page-loading");
-export const currentSize = Number(size.slice(0, 2));
+const currentSize = Number(size.slice(0, 2));
 // export const currentSize = 16;
 
 function deckSetup(currentTheme, numberOfPairs, currentDifficulty) {
@@ -118,3 +118,4 @@ window.addEventListener("load", function () {
   gameFSM(gameStates.idle);
   loading.style.display = "none";
 });
+export { currentDifficulty, currentSize };

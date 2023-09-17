@@ -1,10 +1,10 @@
-import { getElement } from "./utils.js";
+import { getElement } from "../utils.js";
 import {
   addEventListenersToRadioBtns,
   removeEventListenersFromRadioBtns,
 } from "./radioButtons.js";
-import { gameStates } from "./data.js";
-import { gameFSM } from "./gameFSM.js";
+import { gameStates } from "../data.js";
+import { gameFSM } from "../game/gameFSM.js";
 const closeBtn = getElement(".close-btn");
 const sidebar = getElement(".sidebar-wrapper");
 const toggleBtn = getElement(".toggle-btn");

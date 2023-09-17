@@ -1,17 +1,16 @@
-import { getElement, setCheckedState } from "./utils.js";
-import { navTags } from "./data.js";
+import { getElement, setCheckedState, getStorageItem } from "../utils.js";
+import { navTags } from "../data.js";
 import {
   addEventListenersToRadioBtns,
   removeEventListenersFromRadioBtns,
 } from "./radioButtons.js";
-import { gameStates } from "./data.js";
-import { gameFSM } from "./gameFSM.js";
+import { gameStates } from "../data.js";
+import { gameFSM } from "../game/gameFSM.js";
 
 const nav = getElement(".nav");
 const hero = getElement(".hero");
 const tagBtns = [...document.querySelectorAll(".nav-btn")];
 const settingsSubmenu = getElement(".submenu");
-
 // navbar setup
 tagBtns.forEach((btn) => {
   btn.addEventListener("mouseover", (e) => {
