@@ -1,12 +1,7 @@
-import { getElement, getStorageItem } from "../../utils.js";
+import { getElement, getStorageItem, setStorageItem } from "../../utils.js";
 import { gameFSM } from "../gameFSM.js";
 import { gameStates } from "../../data.js";
-
-// const timer = getElement(".current-game-time");
-// console.log(timer);
-// const timerMinutes = timer.querySelector(".min");
-// const timerSeconds = timer.querySelector(".sec");
-// const timerMSeconds = timer.querySelector(".msec");
+import { BestTimeUpdate } from "./timersSetup.js";
 
 let timerInterval;
 let milliseconds = 0;
@@ -15,6 +10,7 @@ let minutes = 0;
 let isPaused = false;
 let msformat = 0;
 let pulseFlag = true;
+let currentGameState;
 
 function updateTimer(timerMinutes, timerSeconds, timerMSeconds) {
   timerMinutes.textContent = timerFormat(minutes);
@@ -49,12 +45,21 @@ function startTimer() {
         const targetSecondsFormat =
           parseInt(targetMinutes) * 60 + parseInt(targetSeconds);
         let currentSecondsFormat = minutes * 60 + seconds;
+
+        // console.log(currentMSeconds);
+        currentGameState = JSON.parse(getStorageItem("currentGameState"));
+        if (currentGameState === gameStates.gameoverSuccess) {
+          stopTimer();
+          togglePulse();
+          BestTimeUpdate(minutes, seconds, msformat);
+        }
+
         if (targetSecondsFormat - currentSecondsFormat <= 5 && pulseFlag) {
           togglePulse();
         }
         if (targetSecondsFormat === currentSecondsFormat) {
-          togglePulse();
           stopTimer();
+          togglePulse();
           gameFSM(gameStates.gameoverFailure);
           console.log("time is up");
           return;
@@ -80,7 +85,6 @@ function timerFormat(timerUnit) {
   if (timerUnit < 10) return `0${timerUnit}`;
   return timerUnit;
 }
-export { startTimer, pauseTimer, resumeTimer };
 
 function togglePulse() {
   const pulsatingElements = [
@@ -106,3 +110,5 @@ function togglePulse() {
 
   pulseFlag = false;
 }
+
+export { startTimer, pauseTimer, resumeTimer, timerFormat };

@@ -8,12 +8,12 @@ const singleCards = [...document.querySelectorAll(".single-card")];
 let preveiousCardId = false;
 let currentCardId = false;
 let eventListenerOnPause = false;
-let pairsToWin = currentSize / 2;
+// let pairsToWin = currentSize / 2;
+let pairsToWin = 1;
 
 deckContainer.addEventListener("click", (e) => {
   let currentGameState = getStorageItem("currentGameState");
   currentGameState = JSON.parse(currentGameState);
-  // console.log(JSON.stringify(currentGameState));
   if (
     !eventListenerOnPause &&
     currentGameState !== gameStates.gameoverFailure &&

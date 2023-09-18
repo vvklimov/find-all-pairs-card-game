@@ -29,6 +29,7 @@ const gameFSM = (state) => {
       } else if (state === gameoverFailure) {
         return setStorageItem("currentGameState", gameoverFailure);
       } else if (state === gameoverSuccess) {
+        setStorageItem("currentGameState", gameoverSuccess);
         // todo
       } else return;
     }

@@ -1,5 +1,6 @@
-import { timers, targetTimeValues } from "../../data.js";
-import { getElement, getStorageItem } from "../../utils.js";
+import { timers, targetTimeValues, navTags } from "../../data.js";
+import { getElement, getStorageItem, setStorageItem } from "../../utils.js";
+import { timerFormat } from "./countUpTimer.js";
 
 const timerContainer = getElement(".timer-container");
 
@@ -15,7 +16,15 @@ function timersSetup(name) {
         timer.timerUnitSec = secs;
         timer.timerUnitMsec = msecs;
       } else if (timerClass === "best-time") {
-        // todo
+        const bestTime = BestTimeSetup();
+        if (bestTime) {
+          const { min, sec, msec } = bestTime;
+          if (min && sec && msec) {
+            timer.timerUnitMin = min;
+            timer.timerUnitSec = sec;
+            timer.timerUnitMsec = msec;
+          }
+        }
       }
       const {
         timerUnitMin: min,
@@ -61,4 +70,68 @@ function getTargetTimeValuesName() {
   }
 }
 getTargetTimeValuesName();
-export { timersSetup, getTargetTimeValuesName };
+
+function BestTimeSetup() {
+  let bestTime = getStorageItem("bestTime");
+  // setup default
+  if (bestTime.length === 0) {
+    bestTime = { ...bestTime };
+    navTags.map((setting) => {
+      if (setting.tag === "size") {
+        setting.subtags.forEach((deckSize) => {
+          bestTime[deckSize.subtagClass] = [{ min: "", sec: "", msec: "" }];
+        });
+        setStorageItem("bestTime", bestTime);
+      }
+    });
+    return false;
+  } else {
+    const settings = JSON.parse(getStorageItem("settings"));
+    const { size: currentSize } = settings;
+    bestTime = JSON.parse(bestTime);
+    const currentBestTime = bestTime[currentSize][0];
+    return currentBestTime;
+  }
+}
+function BestTimeUpdate(minutes, seconds, msformat) {
+  let bestTime = BestTimeSetup();
+  let currentMSeconds = (minutes * 60 + seconds) * 1000 + msformat * 10;
+  const { min, sec, msec } = bestTime;
+  const settings = JSON.parse(getStorageItem("settings"));
+  const { size: currentSize } = settings;
+  const previousBestTime = JSON.parse(getStorageItem("bestTime"));
+  let newRecord = false;
+
+  if (!min && !sec && !msec) {
+    newRecord = true;
+  } else if (CompareTimers(min, sec, msec, currentMSeconds)) {
+    newRecord = true;
+  }
+  if (newRecord) {
+    // set new best time in local storage
+    bestTime.min = timerFormat(minutes);
+    bestTime.sec = timerFormat(seconds);
+    bestTime.msec = timerFormat(msformat);
+    previousBestTime[currentSize][0] = bestTime;
+    setStorageItem("bestTime", previousBestTime);
+    displayNewBestTime(minutes, seconds, msformat);
+  } else return;
+}
+function CompareTimers(prevMin, prevSec, prevMSec, currentMSeconds) {
+  prevMin = parseInt(prevMin);
+  prevSec = parseInt(prevSec);
+  prevMSec = parseInt(prevMSec);
+  const PreviousMSeconds = (prevMin * 60 + prevSec) * 1000 + prevMSec * 10;
+  if (currentMSeconds < PreviousMSeconds) return true;
+  return false;
+}
+function displayNewBestTime(minutes, seconds, msformat) {
+  const bestTimeContainer = getElement(".best-time");
+  const minutesContainer = bestTimeContainer.querySelector(".min");
+  const secondsContainer = bestTimeContainer.querySelector(".sec");
+  const msecondsContainer = bestTimeContainer.querySelector(".msec");
+  minutesContainer.textContent = timerFormat(minutes);
+  secondsContainer.textContent = timerFormat(seconds);
+  msecondsContainer.textContent = timerFormat(msformat);
+}
+export { timersSetup, getTargetTimeValuesName, BestTimeSetup, BestTimeUpdate };
