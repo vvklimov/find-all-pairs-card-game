@@ -1,6 +1,7 @@
-import { timers, targetTimeValues, navTags } from "../../data.js";
+import { timers, targetTimeValues, navTags, gameStates } from "../../data.js";
 import { getElement, getStorageItem, setStorageItem } from "../../utils.js";
 import { timerFormat } from "./countUpTimer.js";
+import { displayGameMenu } from "../../navbars/gameMenu.js";
 
 const timerContainer = getElement(".timer-container");
 
@@ -115,7 +116,17 @@ function BestTimeUpdate(minutes, seconds, msformat) {
     previousBestTime[currentSize][0] = bestTime;
     setStorageItem("bestTime", previousBestTime);
     displayNewBestTime(minutes, seconds, msformat);
-  } else return;
+  }
+  displayGameMenu(
+    gameStates.gameoverSuccess,
+    timerFormat(minutes),
+    timerFormat(seconds),
+    timerFormat(msformat),
+    newRecord
+  );
+  // console.log(timerFormat(minutes),
+  //   timerFormat(seconds, timerFormat(msformat), newRecord));
+  return;
 }
 function CompareTimers(prevMin, prevSec, prevMSec, currentMSeconds) {
   prevMin = parseInt(prevMin);

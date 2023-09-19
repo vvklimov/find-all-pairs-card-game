@@ -51,6 +51,10 @@ deckContainer.addEventListener("click", (e) => {
   }
 });
 
+deckContainer.addEventListener("dragstart", function (e) {
+  e.preventDefault();
+});
+
 function turnCardsBack() {
   singleCards.forEach((element) => {
     if (element.dataset.found === "false") {
@@ -78,7 +82,8 @@ function GameOver() {
   pairsToWin--;
   if (pairsToWin === 0) {
     gameFSM(gameStates.gameoverSuccess);
-    return console.log(`you won`);
+    // return console.log(`you won`);
+    return;
   }
   return pairsToWin;
 }

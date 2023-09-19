@@ -734,3 +734,7 @@ end of sidebar
   margin-right: 0.75rem;
   margin-top: 0.75rem;
 }
+.game-menu .text-content {
+  display: flex;
+  flex-direction: column;
+}

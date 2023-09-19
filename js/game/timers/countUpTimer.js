@@ -2,6 +2,7 @@ import { getElement, getStorageItem, setStorageItem } from "../../utils.js";
 import { gameFSM } from "../gameFSM.js";
 import { gameStates } from "../../data.js";
 import { BestTimeUpdate } from "./timersSetup.js";
+import { displayGameMenu } from "../../navbars/gameMenu.js";
 
 let timerInterval;
 let milliseconds = 0;
@@ -61,7 +62,7 @@ function startTimer() {
           stopTimer();
           togglePulse();
           gameFSM(gameStates.gameoverFailure);
-          console.log("time is up");
+          displayGameMenu(gameStates.gameoverFailure);
           return;
         }
       }
