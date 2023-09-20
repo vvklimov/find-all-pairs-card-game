@@ -34,7 +34,7 @@ function displayGameMenu(currentGameState, min, sec, msec, recordFlag) {
     }
     // player lost
     else if (currentGameState === gameStates.gameoverFailure) {
-      textContent.innerHTML = `<h4>you lost</h4>`;
+      textContent.innerHTML = `<h4>time is up!</h4>`;
     }
     // game is not finished yet
     else {

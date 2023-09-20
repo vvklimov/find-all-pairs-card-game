@@ -2,6 +2,8 @@ import { getElement, getStorageItem } from "../utils.js";
 import { decks, gameStates } from "../data.js";
 import { IndexSelection } from "./randomizer.js";
 import { gameFSM } from "./gameFSM.js";
+import { getRandomImages } from "./APIs/fetchRandomImage.js";
+import { addGameLogic } from "./logic.js";
 
 export const deckContainer = getElement(".deck-container");
 // extracting current settings
@@ -54,14 +56,14 @@ function deckSetup(currentTheme, numberOfPairs, currentDifficulty) {
     })
     .join("");
 }
-deckSetup(currentTheme);
+// deckSetup(currentTheme);
 
-const singleCard = [...document.querySelectorAll(".single-card-container")];
-const singleCardWrapper = [
-  ...document.querySelectorAll(".single-card-wrapper"),
-];
 function SetWidthToCards() {
-  setupGrid6x6and9x4(currentSize);
+  const singleCard = [...document.querySelectorAll(".single-card-container")];
+  const singleCardWrapper = [
+    ...document.querySelectorAll(".single-card-wrapper"),
+  ];
+  setupGrid(currentSize);
   const singleCardAspectRatio = 1.557;
   let singleCardWrapperAspectRatio =
     singleCardWrapper[0].clientHeight / singleCardWrapper[0].clientWidth;
@@ -77,10 +79,10 @@ function SetWidthToCards() {
   });
 }
 
-window.addEventListener("DOMContentLoaded", SetWidthToCards());
+// window.addEventListener("DOMContentLoaded", SetWidthToCards());
 window.addEventListener("resize", SetWidthToCards);
 
-function setupGrid6x6and9x4(currentSize) {
+function setupGrid(currentSize) {
   if (currentSize === 36) {
     if (deckContainer.classList.contains("grid-6x6")) {
       deckContainer.classList.remove("grid-6x6");
@@ -118,4 +120,13 @@ window.addEventListener("load", function () {
   gameFSM(gameStates.idle);
   loading.style.display = "none";
 });
+const displayDeck = async (currentTheme) => {
+  if (currentTheme === "surprise-me") {
+    await getRandomImages();
+  }
+  deckSetup(currentTheme);
+  SetWidthToCards();
+  addGameLogic();
+};
+displayDeck(currentTheme);
 export { currentDifficulty, currentSize };
