@@ -3,6 +3,7 @@ import { decks, gameStates } from "../data.js";
 import { IndexSelection } from "./randomizer.js";
 import { gameFSM } from "./gameFSM.js";
 import { getRandomImages } from "./APIs/fetchRandomImage.js";
+import { getRandomPeople } from "./APIs/fetchRandomPerson.js";
 import { addGameLogic } from "./logic.js";
 
 export const deckContainer = getElement(".deck-container");
@@ -123,10 +124,14 @@ window.addEventListener("load", function () {
 const displayDeck = async (currentTheme) => {
   if (currentTheme === "surprise-me") {
     await getRandomImages();
+  } else if (currentTheme === "people") {
+    await getRandomPeople();
   }
   deckSetup(currentTheme);
   SetWidthToCards();
   addGameLogic();
 };
+
 displayDeck(currentTheme);
+
 export { currentDifficulty, currentSize };

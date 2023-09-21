@@ -7,8 +7,9 @@ import { gameStates } from "../data.js";
 let preveiousCardId = false;
 let currentCardId = false;
 let eventListenerOnPause = false;
-// let pairsToWin = currentSize / 2;
+// let pairsToWin;
 let pairsToWin = 1;
+
 const addGameLogic = () => {
   deckContainer.addEventListener("click", (e) => {
     let currentGameState = getStorageItem("currentGameState");
@@ -80,12 +81,16 @@ function SetFoundFlag(singleCards) {
 }
 
 function GameOver() {
+  if (!pairsToWin) {
+    pairsToWin = currentSize / 2;
+  }
   pairsToWin--;
   if (pairsToWin === 0) {
     gameFSM(gameStates.gameoverSuccess);
     // return console.log(`you won`);
     return;
   }
+
   return pairsToWin;
 }
 export { addGameLogic };
