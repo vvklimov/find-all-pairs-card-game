@@ -5,6 +5,7 @@ import { gameFSM } from "./gameFSM.js";
 import { getRandomImages } from "./APIs/fetchRandomImage.js";
 import { getRandomPeople } from "./APIs/fetchRandomPerson.js";
 import { addGameLogic } from "./logic.js";
+import { SetupOddEvenRowClass, SnakeLikeArrival } from "./deckTranslation.js";
 
 export const deckContainer = getElement(".deck-container");
 // extracting current settings
@@ -84,37 +85,44 @@ function SetWidthToCards() {
 window.addEventListener("resize", SetWidthToCards);
 
 function setupGrid(currentSize) {
+  RemoveGrid();
   if (currentSize === 36) {
-    if (deckContainer.classList.contains("grid-6x6")) {
-      deckContainer.classList.remove("grid-6x6");
-    }
-    if (deckContainer.classList.contains("grid-9x4")) {
-      deckContainer.classList.remove("grid-9x4");
-    }
     if (window.innerWidth > 600 && window.innerWidth <= 1000) {
-      deckContainer.classList.add("grid-6x6");
+      deckContainer.classList.add("grid-6columns");
     } else if (window.innerWidth > 1000) {
-      deckContainer.classList.add("grid-9x4");
+      deckContainer.classList.add("grid-9columns");
+    } else {
+      deckContainer.classList.add("grid-4columns");
     }
   } else if (currentSize === 16) {
+    deckContainer.classList.add("grid-4columns");
     deckContainer.style.maxWidth = `${deckContainer.clientHeight}px`;
   } else if (currentSize === 20) {
-    if (deckContainer.classList.contains("grid-5x4")) {
-      deckContainer.classList.remove("grid-5x4");
-    }
     deckContainer.style.maxWidth = `${deckContainer.clientHeight}px`;
     if (window.innerWidth > 600) {
-      deckContainer.classList.add("grid-5x4");
+      deckContainer.classList.add("grid-5columns");
+    } else {
+      deckContainer.classList.add("grid-4columns");
     }
   } else if (currentSize === 24) {
-    if (deckContainer.classList.contains("grid-6x4")) {
-      deckContainer.classList.remove("grid-6x4");
-    }
     deckContainer.style.maxWidth = `${(deckContainer.clientHeight * 8) / 7}px`;
     if (window.innerWidth > 700) {
-      deckContainer.classList.add("grid-6x4");
+      deckContainer.classList.add("grid-6columns");
+    } else {
+      deckContainer.classList.add("grid-4columns");
     }
   }
+  const currentGameState = JSON.parse(getStorageItem("currentGameState"));
+  //  setup odd/even-row class
+  if (currentGameState === gameStates.idle) {
+    const cards = [...document.querySelectorAll(".single-card-container")];
+    const deckContainerClassList = [...deckContainer.classList];
+    const currentLayout = deckContainerClassList.find((grid) => {
+      return grid.startsWith("grid-");
+    });
+    let numberOfColumns = parseInt(currentLayout.slice(5, 6));
+    SetupOddEvenRowClass(numberOfColumns, cards);
+  } else return;
 }
 
 window.addEventListener("load", function () {
@@ -130,7 +138,23 @@ const displayDeck = async (currentTheme) => {
   deckSetup(currentTheme);
   SetWidthToCards();
   addGameLogic();
+  await SnakeLikeArrival();
 };
+
+function RemoveGrid() {
+  if (deckContainer.classList.contains("grid-4columns")) {
+    deckContainer.classList.remove("grid-4columns");
+  }
+  if (deckContainer.classList.contains("grid-5columns")) {
+    deckContainer.classList.remove("grid-5columns");
+  }
+  if (deckContainer.classList.contains("grid-6columns")) {
+    deckContainer.classList.remove("grid-6columns");
+  }
+  if (deckContainer.classList.contains("grid-9columns")) {
+    deckContainer.classList.remove("grid-9columns");
+  }
+}
 
 displayDeck(currentTheme);
 

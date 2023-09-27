@@ -10,3 +10,4 @@ import "./js/navbars/gameMenu.js";
 import "./js/game/gameFSM.js";
 import "./js/game/timers/timersSetup.js";
 import "./js/game/timers/countUpTimer.js";
+import "./js/game/deckTranslation.js";

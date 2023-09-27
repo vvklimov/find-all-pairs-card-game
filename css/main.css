@@ -325,24 +325,24 @@ navbar
   display: grid;
   width: 90vw;
   margin: 0 auto;
-  grid-template-columns: repeat(4, auto);
   user-select: none;
   gap: 1rem;
   height: calc(100vh - 6rem - 1rem - 5rem);
   padding-bottom: 1rem;
 }
-.grid-6x6 {
-  grid-template-columns: repeat(6, auto);
+.grid-4columns {
+  grid-template-columns: repeat(4, auto);
 }
-.grid-9x4 {
-  grid-template-columns: repeat(9, auto);
-}
-.grid-5x4 {
+.grid-5columns {
   grid-template-columns: repeat(5, auto);
 }
-.grid-6x4 {
+.grid-6columns {
   grid-template-columns: repeat(6, auto);
 }
+.grid-9columns {
+  grid-template-columns: repeat(9, auto);
+}
+
 /*
 ==============
 single card
@@ -358,6 +358,8 @@ single card
 .single-card-container {
   z-index: 3;
   position: absolute;
+  transition: all 0.5s ease-out;
+  visibility: hidden;
 }
 .single-card {
   width: 100%;
