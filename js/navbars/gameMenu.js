@@ -1,23 +1,29 @@
 import { gameStates } from "../data.js";
 import { getElement, getStorageItem } from "../utils.js";
 import { gameFSM } from "../game/gameFSM.js";
+import { displayDeck, displayDeckExecuting } from "../game/deckSetup.js";
+import { RemoveTimer } from "../game/timers/countUpTimer.js";
+import { RemoveEventListenersFromDeckContainer } from "../game/logic.js";
+import { RemoveDeck, waitForDisplayDeck } from "../game/deckTranslation.js";
 const newGameBtns = [...document.querySelectorAll(".new-game-btn")];
 const gameMenu = getElement(".game-menu");
 let renderFlag = true;
 
 newGameBtns.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    let currentGameState = JSON.parse(getStorageItem("currentGameState"));
-    displayGameMenu(currentGameState);
-  });
+  btn.removeEventListener("click", ShowGameMenu);
+  btn.addEventListener("click", ShowGameMenu);
 });
-
+function ShowGameMenu() {
+  let currentGameState = JSON.parse(getStorageItem("currentGameState"));
+  displayGameMenu(currentGameState);
+}
 // hide rules before domcontent loaded
 // add script at the very beginning of body with checking show rules
 function displayGameMenu(currentGameState, min, sec, msec, recordFlag) {
   gameFSM(gameStates.pause);
   if (!gameMenu.classList.contains("show")) gameMenu.classList.add("show");
   const gameMenuBtns = [...gameMenu.querySelectorAll(".btn")];
+
   const textContent = gameMenu.querySelector(".text-content");
   if (renderFlag) {
     // player won
@@ -42,16 +48,32 @@ function displayGameMenu(currentGameState, min, sec, msec, recordFlag) {
     }
   }
   gameMenuBtns.forEach((gameMenuBtn) => {
-    gameMenuBtn.addEventListener("click", (e) => {
-      const btn = e.currentTarget;
-      if (btn.classList.contains("close-btn")) {
-        gameFSM(gameStates.resume);
-        if (gameMenu.classList.contains("show"))
-          gameMenu.classList.remove("show");
-      } else if (btn.classList.contains("start-new-game-btn")) {
-        location.reload();
-      }
-    });
+    gameMenuBtn.removeEventListener("click", GameMenuHandler);
+    gameMenuBtn.addEventListener("click", GameMenuHandler);
   });
 }
-export { displayGameMenu };
+function GameMenuHandler(e) {
+  const btn = e.currentTarget;
+  if (btn.classList.contains("close-btn")) {
+    gameFSM(gameStates.resume);
+    HideGameMenu();
+  } else if (btn.classList.contains("start-new-game-btn")) {
+    StartNewGame();
+  }
+}
+function HideGameMenu() {
+  if (gameMenu.classList.contains("show")) gameMenu.classList.remove("show");
+}
+async function StartNewGame() {
+  HideGameMenu();
+  // stop timers
+  RemoveTimer();
+  // remove event listeners
+  RemoveEventListenersFromDeckContainer();
+  if (displayDeckExecuting) {
+    await waitForDisplayDeck();
+  }
+  await RemoveDeck();
+  await displayDeck();
+}
+export { displayGameMenu, StartNewGame };

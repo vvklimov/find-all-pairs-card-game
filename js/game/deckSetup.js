@@ -6,29 +6,23 @@ import { getRandomImages } from "./APIs/fetchRandomImage.js";
 import { getRandomPeople } from "./APIs/fetchRandomPerson.js";
 import { addGameLogic } from "./logic.js";
 import { SetupOddEvenRowClass, SnakeLikeArrival } from "./deckTranslation.js";
+import { timersSetup, getTargetTimeValuesName } from "./timers/timersSetup.js";
 
-export const deckContainer = getElement(".deck-container");
-// extracting current settings
-const settings = JSON.parse(getStorageItem("settings"));
-const {
-  themes: currentTheme,
-  size,
-  difficulty: currentDifficulty,
-  other,
-} = settings;
+const deckContainer = getElement(".deck-container");
 const loading = getElement(".page-loading");
-const currentSize = Number(size.slice(0, 2));
+let displayDeckExecuting = false;
+let currentSize;
+
+//////////////////////////////
 // export const currentSize = 16;
 
-function deckSetup(currentTheme, numberOfPairs, currentDifficulty) {
+function deckSetup(currentSize, currentTheme) {
   deckContainer.innerHTML = decks
     .map((deck) => {
       // destructuring array
       const { deckName, deckImg, cardsSrc } = deck;
       if (currentTheme === deckName) {
         let selectedCards = IndexSelection(currentSize, cardsSrc.length);
-        // console.log(selectedCards);
-        // console.log(cardsSrc);
         return selectedCards
           .map((index) => {
             // const { cardSrc: src } = card;
@@ -58,9 +52,8 @@ function deckSetup(currentTheme, numberOfPairs, currentDifficulty) {
     })
     .join("");
 }
-// deckSetup(currentTheme);
 
-function SetWidthToCards() {
+function SetWidthToCards(currentSize) {
   const singleCard = [...document.querySelectorAll(".single-card-container")];
   const singleCardWrapper = [
     ...document.querySelectorAll(".single-card-wrapper"),
@@ -82,7 +75,9 @@ function SetWidthToCards() {
 }
 
 // window.addEventListener("DOMContentLoaded", SetWidthToCards());
-window.addEventListener("resize", SetWidthToCards);
+window.addEventListener("resize", () => {
+  SetWidthToCards(currentSize);
+});
 
 function setupGrid(currentSize) {
   RemoveGrid();
@@ -94,6 +89,7 @@ function setupGrid(currentSize) {
     } else {
       deckContainer.classList.add("grid-4columns");
     }
+    deckContainer.style.maxWidth = `${(deckContainer.clientHeight * 16) / 9}px`;
   } else if (currentSize === 16) {
     deckContainer.classList.add("grid-4columns");
     deckContainer.style.maxWidth = `${deckContainer.clientHeight}px`;
@@ -129,17 +125,25 @@ window.addEventListener("load", function () {
   gameFSM(gameStates.idle);
   loading.style.display = "none";
 });
-const displayDeck = async (currentTheme) => {
+const displayDeck = async () => {
+  displayDeckExecuting = true;
+  const { themes: currentTheme, size } = JSON.parse(getStorageItem("settings"));
+  currentSize = Number(size.slice(0, 2));
+  timersSetup(getTargetTimeValuesName());
+  gameFSM(gameStates.idle);
   if (currentTheme === "surprise-me") {
     await getRandomImages();
   } else if (currentTheme === "people") {
     await getRandomPeople();
   }
-  deckSetup(currentTheme);
-  SetWidthToCards();
-  addGameLogic();
+  deckSetup(currentSize, currentTheme);
+  SetWidthToCards(currentSize);
   await SnakeLikeArrival();
+  addGameLogic();
+  displayDeckExecuting = false;
 };
+window.addEventListener("DOMContentLoaded", displayDeck);
+// displayDeck();
 
 function RemoveGrid() {
   if (deckContainer.classList.contains("grid-4columns")) {
@@ -156,6 +160,4 @@ function RemoveGrid() {
   }
 }
 
-displayDeck(currentTheme);
-
-export { currentDifficulty, currentSize };
+export { currentSize, displayDeck, deckContainer, displayDeckExecuting };

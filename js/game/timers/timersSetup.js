@@ -3,9 +3,8 @@ import { getElement, getStorageItem, setStorageItem } from "../../utils.js";
 import { timerFormat } from "./countUpTimer.js";
 import { displayGameMenu } from "../../navbars/gameMenu.js";
 
-const timerContainer = getElement(".timer-container");
-
 function timersSetup(name) {
+  const timerContainer = getElement(".timer-container");
   timerContainer.innerHTML = timers
     .map((timer) => {
       const { timerClass, timerName } = timer;
@@ -59,7 +58,7 @@ function timersSetup(name) {
     })
     .join("");
 }
-timersSetup(getTargetTimeValuesName());
+// timersSetup(getTargetTimeValuesName());
 
 function getTargetTimeValuesName() {
   const settings = JSON.parse(getStorageItem("settings"));
@@ -70,7 +69,7 @@ function getTargetTimeValuesName() {
     return name;
   }
 }
-getTargetTimeValuesName();
+// getTargetTimeValuesName();
 
 function BestTimeSetup() {
   let bestTime = getStorageItem("bestTime");

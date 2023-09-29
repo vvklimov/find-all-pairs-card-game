@@ -4,14 +4,14 @@ import { gameStates } from "../../data.js";
 import { BestTimeUpdate } from "./timersSetup.js";
 import { displayGameMenu } from "../../navbars/gameMenu.js";
 
-let timerInterval;
-let milliseconds = 0;
-let seconds = 0;
-let minutes = 0;
-let isPaused = false;
-let msformat = 0;
-let pulseFlag = true;
-let currentGameState;
+let timerInterval,
+  currentGameState,
+  milliseconds,
+  seconds,
+  minutes,
+  isPaused,
+  msformat,
+  pulseFlag;
 
 function updateTimer(timerMinutes, timerSeconds, timerMSeconds) {
   timerMinutes.textContent = timerFormat(minutes);
@@ -20,6 +20,7 @@ function updateTimer(timerMinutes, timerSeconds, timerMSeconds) {
 }
 
 function startTimer() {
+  SetDefaultVarValues();
   const timer = getElement(".current-game-time");
   let targetTimer = getElement(".target-time");
   let targetSeconds = targetTimer.querySelector(".sec").textContent;
@@ -75,7 +76,7 @@ function pauseTimer() {
 }
 function stopTimer() {
   isPaused = true;
-  clearInterval(timerInterval);
+  RemoveTimer();
 }
 
 function resumeTimer() {
@@ -86,7 +87,15 @@ function timerFormat(timerUnit) {
   if (timerUnit < 10) return `0${timerUnit}`;
   return timerUnit;
 }
-
+function SetDefaultVarValues() {
+  timerInterval = false;
+  milliseconds = 0;
+  seconds = 0;
+  minutes = 0;
+  isPaused = false;
+  msformat = 0;
+  pulseFlag = true;
+}
 function togglePulse() {
   const pulsatingElements = [
     ...document.querySelectorAll(".current-game-time>.timer-format h5"),
@@ -111,5 +120,10 @@ function togglePulse() {
 
   pulseFlag = false;
 }
+function RemoveTimer() {
+  if (timerInterval) {
+    clearInterval(timerInterval);
+  }
+}
 
-export { startTimer, pauseTimer, resumeTimer, timerFormat };
+export { startTimer, pauseTimer, resumeTimer, timerFormat, RemoveTimer };

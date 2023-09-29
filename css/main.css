@@ -89,6 +89,7 @@ body {
   color: var(--textColor);
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 p {

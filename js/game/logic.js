@@ -4,61 +4,66 @@ import { getElement, getStorageItem } from "../utils.js";
 import { gameFSM } from "./gameFSM.js";
 import { gameStates } from "../data.js";
 
-let preveiousCardId = false;
-let currentCardId = false;
-let eventListenerOnPause = false;
 // let pairsToWin;
 let pairsToWin = 1;
+let abortFlag = false;
+let currentCardId, eventListenerOnPause, preveiousCardId;
 
 const addGameLogic = () => {
-  deckContainer.addEventListener("click", (e) => {
-    let currentGameState = getStorageItem("currentGameState");
+  SetDefaultVarValues();
+  // deckContainer.replaceWith(deckContainer.cloneNode(true));
+  deckContainer.addEventListener("click", GameLogicHandler);
+  deckContainer.addEventListener("dragstart", preventDefaultDrag);
+};
+function GameLogicHandler(e) {
+  abortFlag = true;
+  let currentGameState = getStorageItem("currentGameState");
 
-    currentGameState = JSON.parse(currentGameState);
+  currentGameState = JSON.parse(currentGameState);
+  if (
+    !eventListenerOnPause &&
+    currentGameState !== gameStates.gameoverFailure &&
+    currentGameState !== gameStates.gameoverSuccess
+  ) {
+    const singleCard = e.target.parentElement.parentElement;
+    const singleCardBackSide = e.target.parentElement;
+
     if (
-      !eventListenerOnPause &&
-      currentGameState !== gameStates.gameoverFailure &&
-      currentGameState !== gameStates.gameoverSuccess
+      singleCard.classList.contains("single-card") &&
+      singleCardBackSide.classList.contains("single-card-back")
     ) {
-      const singleCard = e.target.parentElement.parentElement;
-      const singleCardBackSide = e.target.parentElement;
-
-      if (
-        singleCard.classList.contains("single-card") &&
-        singleCardBackSide.classList.contains("single-card-back")
-      ) {
-        gameFSM(gameStates.game);
-        singleCard.classList.add("single-card-flip");
-        // if we flip first card of pair
-        if (!preveiousCardId) {
-          preveiousCardId = singleCard.dataset.cardId;
-        }
-        // if we've already flipped a card before
-        else {
-          const singleCards = [...document.querySelectorAll(".single-card")];
-          currentCardId = singleCard.dataset.cardId;
-          // if it is the second half of pair
-          if (currentCardId === preveiousCardId) {
-            // set found flag to both found cards
-            SetFoundFlag(singleCards);
-            GameOver();
-            preveiousCardId = false;
-          } else {
-            // if the card we flipped doesn't match previous card
-            eventListenerOnPause = true;
-            setTimeout(() => {
-              turnCardsBack(singleCards);
-            }, 400);
-          }
+      gameFSM(gameStates.game);
+      singleCard.classList.add("single-card-flip");
+      // if we flip first card of pair
+      if (!preveiousCardId) {
+        preveiousCardId = singleCard.dataset.cardId;
+      }
+      // if we've already flipped a card before
+      else {
+        const singleCards = [...document.querySelectorAll(".single-card")];
+        currentCardId = singleCard.dataset.cardId;
+        // if it is the second half of pair
+        if (currentCardId === preveiousCardId) {
+          // set found flag to both found cards
+          SetFoundFlag(singleCards);
+          GameOver();
+          preveiousCardId = false;
+        } else {
+          // console.log(preveiousCardId, currentCardId);
+          // if the card we flipped doesn't match previous card
+          eventListenerOnPause = true;
+          setTimeout(() => {
+            turnCardsBack(singleCards);
+          }, 400);
         }
       }
     }
-  });
-  deckContainer.addEventListener("dragstart", function (e) {
-    e.preventDefault();
-  });
-};
+  }
+}
 
+function preventDefaultDrag(e) {
+  e.preventDefault();
+}
 function turnCardsBack(singleCards) {
   singleCards.forEach((element) => {
     if (element.dataset.found === "false") {
@@ -93,4 +98,14 @@ function GameOver() {
 
   return pairsToWin;
 }
-export { addGameLogic };
+function RemoveEventListenersFromDeckContainer() {
+  deckContainer.removeEventListener("click", GameLogicHandler);
+  deckContainer.removeEventListener("dragstart", preventDefaultDrag);
+}
+function SetDefaultVarValues() {
+  currentCardId = false;
+  eventListenerOnPause = false;
+  preveiousCardId = false;
+}
+
+export { addGameLogic, RemoveEventListenersFromDeckContainer };

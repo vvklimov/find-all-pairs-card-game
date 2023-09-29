@@ -1,4 +1,6 @@
-import { getElement } from "../utils.js";
+import { gameStates } from "../data.js";
+import { getElement, getStorageItem } from "../utils.js";
+import { displayDeckExecuting } from "./deckSetup.js";
 
 async function TransformCards(cards) {
   const permutatedCards = OddEvenRow(cards);
@@ -6,7 +8,7 @@ async function TransformCards(cards) {
     await TransformCard(card);
   }
   // finishing transform aninmation for the last card
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  await Timeout(500);
 }
 
 // btn.addEventListener("click", TransformCards);
@@ -30,48 +32,48 @@ async function TransformCard(card) {
 
 // moves cards to the left center of hero element, player cannot see them
 async function hideCards(position, cards) {
-  const hero = getElement(".hero");
+  const heroContainer = getElement(".hero-container");
   const {
     top: topCoor,
     bottom: bottomCoor,
     left: leftCoor,
     right: rightCoor,
-  } = hero.getBoundingClientRect();
-  const cardWrapper = [...document.querySelectorAll(".single-card-wrapper")];
+  } = heroContainer.getBoundingClientRect();
   // center of hero
-  const targetPositionY = (bottomCoor - topCoor) / 2;
-  const targetPositionX = (rightCoor - leftCoor) / 2;
+  const heroCenterY = (bottomCoor - topCoor) / 2 + topCoor;
+  const heroCenterX = (rightCoor - leftCoor) / 2;
   let xDiff, yDiff, cardCenterX, cardCenterY;
   cards.forEach((card, index) => {
     const currentPos = card.getBoundingClientRect();
     cardCenterX = (currentPos.right - currentPos.left) / 2;
     cardCenterY = (currentPos.bottom - currentPos.top) / 2;
-    // console.log(cardCenterX, currentPos.right, currentPos.left);
     if (position === "default") {
       xDiff = -currentPos.right - 20;
-      yDiff = targetPositionY - currentPos.top;
+      yDiff = heroCenterY - currentPos.bottom + cardCenterY;
     } else if (position === "center") {
-      // todo!
-      xDiff = targetPositionX - (currentPos.right - cardCenterX);
-      yDiff = targetPositionY - (currentPos.bottom - cardCenterY);
+      xDiff = heroCenterX - currentPos.right + cardCenterX;
+      yDiff = heroCenterY - currentPos.bottom + cardCenterY;
     } else if (position === "center-right") {
       //  as it is already centered vertically, in order to maintain its vertical position we  have to calculate from inital card coordinates(its wrappers)
-      const {
-        top: wrapperTop,
-        bottom: wrapperBottom,
-        left: wrapperLeft,
-        right: wrapperRight,
-      } = cardWrapper[index].getBoundingClientRect();
-      xDiff = rightCoor - (wrapperLeft - (wrapperRight - wrapperLeft) / 2);
-      // yDiff = targetPositionY - (currentPos.top + cardCenterY);
-      yDiff =
-        targetPositionY - (wrapperBottom - (wrapperBottom - wrapperTop) / 2);
+      const cardWrapper = [
+        ...document.querySelectorAll(".single-card-wrapper"),
+      ];
+      if (cardWrapper) {
+        const {
+          top: wrapperTop,
+          bottom: wrapperBottom,
+          left: wrapperLeft,
+          right: wrapperRight,
+        } = cardWrapper[index].getBoundingClientRect();
+        xDiff = rightCoor - (wrapperLeft - (wrapperRight - wrapperLeft) / 2);
+        yDiff =
+          heroCenterY - (wrapperBottom - (wrapperBottom - wrapperTop) / 2);
+      }
     } else return;
     card.style.transform = `translate(${xDiff}px, ${yDiff}px)`;
-    // console.log(card.getBoundingClientRect());
   });
   // wait till animation is finished
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  await Timeout(500);
   return Promise.resolve();
 }
 
@@ -104,10 +106,12 @@ function PermutateArrays(evenRowCards, oddRowCards) {
 
 async function RemoveDeck() {
   const cards = [...document.querySelectorAll(".single-card-container")];
-
-  // TODO
-  // add function flipping backside up flipped cards
-
+  const currentGameState = JSON.parse(getStorageItem("currentGameState"));
+  if (currentGameState !== gameStates.idle) {
+    await turnAllCardsBack();
+  } else {
+    await Timeout(500);
+  }
   await hideCards("center", cards);
   //  moving cards to the left
   await hideCards("center-right", cards);
@@ -142,5 +146,41 @@ function SetupOddEvenRowClass(numberOfColumns, cards) {
     }
   });
 }
+async function turnAllCardsBack() {
+  // wait untill game menu closes
+  await Timeout(500);
+  let foundFlippedCards = false;
+  const cards = [...document.querySelectorAll(".single-card")];
 
-export { SetupOddEvenRowClass, SnakeLikeArrival, RemoveDeck };
+  cards.forEach((card) => {
+    if (card.classList.contains("single-card-flip")) {
+      card.classList.remove("single-card-flip");
+      foundFlippedCards = true;
+    }
+  });
+  if (foundFlippedCards) {
+    await Timeout(500);
+  }
+}
+async function Timeout(time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
+const waitForDisplayDeck = async () => {
+  return new Promise((resolve) => {
+    const checkDisplayDeckStatus = () => {
+      if (!displayDeckExecuting) {
+        resolve();
+      } else {
+        setTimeout(checkDisplayDeckStatus, 100);
+      }
+    };
+    checkDisplayDeckStatus();
+  });
+};
+
+export {
+  SetupOddEvenRowClass,
+  SnakeLikeArrival,
+  RemoveDeck,
+  waitForDisplayDeck,
+};

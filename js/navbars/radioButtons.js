@@ -1,11 +1,11 @@
-import { getElement, getStorageItem } from "../utils.js";
+import { getStorageItem } from "../utils.js";
 import { activeSettings, editSettings } from "../settings.js";
 import { gameStates } from "../data.js";
 import {
   timersSetup,
   getTargetTimeValuesName,
 } from "../game/timers/timersSetup.js";
-import { currentDifficulty, currentSize } from "../game/deckSetup.js";
+import { StartNewGame } from "./gameMenu.js";
 function radioBtnClickHandler(e) {
   // extracting data-tag data-subtag
   const id = e.currentTarget.dataset.tag;
@@ -55,7 +55,7 @@ function radioBtnClickHandler(e) {
     currentGameState = JSON.parse(currentGameState);
     if (currentGameState === gameStates.idle) {
       if (id === "size" || id === "themes") {
-        location.reload();
+        StartNewGame();
       } else if (id === "difficulty") {
         timersSetup(getTargetTimeValuesName());
         ////////////////////

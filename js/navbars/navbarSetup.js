@@ -72,7 +72,10 @@ function hideSettingsSubmenu() {
 hero.addEventListener("mouseover", function () {
   removeGradient();
   hideSettingsSubmenu();
-  gameFSM(gameStates.resume);
+  const gameMenu = getElement(".game-menu");
+  if (!gameMenu.classList.contains("show")) {
+    gameFSM(gameStates.resume);
+  }
 });
 nav.addEventListener("mouseover", function (e) {
   if (
