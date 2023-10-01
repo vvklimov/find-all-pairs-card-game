@@ -3,8 +3,10 @@ import { getElement, getStorageItem } from "../utils.js";
 import { gameFSM } from "../game/gameFSM.js";
 import { displayDeck, displayDeckExecuting } from "../game/deckSetup.js";
 import { RemoveTimer } from "../game/timers/countUpTimer.js";
-import { RemoveEventListenersFromDeckContainer } from "../game/logic.js";
+import { RemoveEventListenersFromHero } from "../game/logic.js";
 import { RemoveDeck, waitForDisplayDeck } from "../game/deckTranslation.js";
+import { ChooseBackground } from "../backgroundSetup.js";
+import { HideSidebar } from "./sidebarToggle.js";
 const newGameBtns = [...document.querySelectorAll(".new-game-btn")];
 const gameMenu = getElement(".game-menu");
 let renderFlag = true;
@@ -65,15 +67,18 @@ function HideGameMenu() {
   if (gameMenu.classList.contains("show")) gameMenu.classList.remove("show");
 }
 async function StartNewGame() {
+  renderFlag = true;
+  HideSidebar();
   HideGameMenu();
   // stop timers
   RemoveTimer();
   // remove event listeners
-  RemoveEventListenersFromDeckContainer();
+  RemoveEventListenersFromHero();
   if (displayDeckExecuting) {
-    await waitForDisplayDeck();
+    await waitForDisplayDeck(displayDeckExecuting);
   }
   await RemoveDeck();
+  await ChooseBackground();
   await displayDeck();
 }
 export { displayGameMenu, StartNewGame };

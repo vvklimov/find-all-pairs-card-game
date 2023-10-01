@@ -10,9 +10,7 @@ const sidebar = getElement(".sidebar-wrapper");
 const toggleBtn = getElement(".toggle-btn");
 
 closeBtn.addEventListener("click", () => {
-  if (sidebar.classList.contains("show")) {
-    sidebar.classList.remove("show");
-  }
+  HideSidebar();
   gameFSM(gameStates.resume);
 });
 
@@ -29,7 +27,11 @@ toggleBtn.addEventListener("click", () => {
 // closes sidebar if resolution is matched
 const maxWidth = window.matchMedia("(min-width: 925px)");
 maxWidth.addEventListener("change", () => {
+  HideSidebar();
+});
+function HideSidebar() {
   if (sidebar.classList.contains("show")) {
     sidebar.classList.remove("show");
   }
-});
+}
+export { HideSidebar };

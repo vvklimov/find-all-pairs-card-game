@@ -183,4 +183,5 @@ export {
   SnakeLikeArrival,
   RemoveDeck,
   waitForDisplayDeck,
+  Timeout,
 };

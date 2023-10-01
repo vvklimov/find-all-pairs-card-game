@@ -64,6 +64,35 @@ const navTags = [
     ],
   },
 ];
+const backgrounds = [
+  {
+    theme: "dark-fantasy",
+    src: [
+      "./assets/images/backgrounds/dark_fantasy_bg1.png",
+      "./assets/images/backgrounds/dark_fantasy_bg2.png",
+      "./assets/images/backgrounds/dark_fantasy_bg3.png",
+    ],
+  },
+  {
+    theme: "nature",
+    src: "./assets/images/backgrounds/nature_bg.png",
+  },
+
+  {
+    theme: "people",
+    src: "./assets/images/backgrounds/people_bg.png",
+  },
+
+  {
+    theme: "javascript-frameworks",
+    src: "./assets/images/backgrounds/js_background.png",
+  },
+
+  {
+    theme: "surprise-me",
+    src: "./assets/images/backgrounds/surprise_me_bg.png",
+  },
+];
 
 const defaultSettings = {
   difficulty: "normal",
@@ -371,4 +400,5 @@ export {
   gameStates,
   timers,
   targetTimeValues,
+  backgrounds,
 };

@@ -4,19 +4,16 @@ import { getElement, getStorageItem } from "../utils.js";
 import { gameFSM } from "./gameFSM.js";
 import { gameStates } from "../data.js";
 
-// let pairsToWin;
-let pairsToWin = 1;
-let abortFlag = false;
-let currentCardId, eventListenerOnPause, preveiousCardId;
+let currentCardId, eventListenerOnPause, preveiousCardId, pairsToWin;
 
 const addGameLogic = () => {
   SetDefaultVarValues();
   // deckContainer.replaceWith(deckContainer.cloneNode(true));
+  const hero = getElement(".hero");
   deckContainer.addEventListener("click", GameLogicHandler);
-  deckContainer.addEventListener("dragstart", preventDefaultDrag);
+  hero.addEventListener("dragstart", preventDefaultDrag);
 };
 function GameLogicHandler(e) {
-  abortFlag = true;
   let currentGameState = getStorageItem("currentGameState");
 
   currentGameState = JSON.parse(currentGameState);
@@ -86,26 +83,26 @@ function SetFoundFlag(singleCards) {
 }
 
 function GameOver() {
-  if (!pairsToWin) {
-    pairsToWin = currentSize / 2;
-  }
   pairsToWin--;
   if (pairsToWin === 0) {
     gameFSM(gameStates.gameoverSuccess);
-    // return console.log(`you won`);
     return;
   }
 
   return pairsToWin;
 }
-function RemoveEventListenersFromDeckContainer() {
+function RemoveEventListenersFromHero() {
+  const hero = getElement(".hero");
   deckContainer.removeEventListener("click", GameLogicHandler);
-  deckContainer.removeEventListener("dragstart", preventDefaultDrag);
+  hero.removeEventListener("dragstart", preventDefaultDrag);
 }
 function SetDefaultVarValues() {
   currentCardId = false;
   eventListenerOnPause = false;
   preveiousCardId = false;
+
+  // pairsToWin = currentSize / 2;
+  pairsToWin = 1;
 }
 
-export { addGameLogic, RemoveEventListenersFromDeckContainer };
+export { addGameLogic, RemoveEventListenersFromHero };
