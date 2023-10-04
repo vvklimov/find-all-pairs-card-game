@@ -23,6 +23,10 @@ function timersSetup(name) {
             timer.timerUnitMin = min;
             timer.timerUnitSec = sec;
             timer.timerUnitMsec = msec;
+          } else {
+            timer.timerUnitMin = "--";
+            timer.timerUnitSec = "--";
+            timer.timerUnitMsec = "--";
           }
         }
       }
@@ -61,7 +65,7 @@ function timersSetup(name) {
 // timersSetup(getTargetTimeValuesName());
 
 function getTargetTimeValuesName() {
-  const settings = JSON.parse(getStorageItem("settings"));
+  const settings = JSON.parse(getStorageItem("currentGameSettings"));
   if (settings) {
     let { difficulty, size } = settings;
     size = size.slice(0, 2);
@@ -86,7 +90,7 @@ function BestTimeSetup() {
     });
     return false;
   } else {
-    const settings = JSON.parse(getStorageItem("settings"));
+    const settings = JSON.parse(getStorageItem("currentGameSettings"));
     const { size: currentSize } = settings;
     bestTime = JSON.parse(bestTime);
     const currentBestTime = bestTime[currentSize][0];
@@ -97,7 +101,7 @@ function BestTimeUpdate(minutes, seconds, msformat) {
   let bestTime = BestTimeSetup();
   let currentMSeconds = (minutes * 60 + seconds) * 1000 + msformat * 10;
   const { min, sec, msec } = bestTime;
-  const settings = JSON.parse(getStorageItem("settings"));
+  const settings = JSON.parse(getStorageItem("currentGameSettings"));
   const { size: currentSize } = settings;
   const previousBestTime = JSON.parse(getStorageItem("bestTime"));
   let newRecord = false;

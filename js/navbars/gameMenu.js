@@ -7,6 +7,7 @@ import { RemoveEventListenersFromHero } from "../game/logic.js";
 import { RemoveDeck, waitForDisplayDeck } from "../game/deckTranslation.js";
 import { ChooseBackground } from "../backgroundSetup.js";
 import { HideSidebar } from "./sidebarToggle.js";
+import { CompareSizeAndThemeSettings } from "../settings.js";
 const newGameBtns = [...document.querySelectorAll(".new-game-btn")];
 const gameMenu = getElement(".game-menu");
 let renderFlag = true;
@@ -45,7 +46,9 @@ function displayGameMenu(currentGameState, min, sec, msec, recordFlag) {
       textContent.innerHTML = `<h4>time is up!</h4>`;
     }
     // game is not finished yet
-    else {
+    else if (CompareSizeAndThemeSettings()) {
+      textContent.innerHTML = `<h5>to apply changes</h5><h5>you have to start a new game</h5><h4>start a new game?</h4>`;
+    } else {
       textContent.innerHTML = `<h4>start a new game?</h4>`;
     }
   }

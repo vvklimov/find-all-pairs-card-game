@@ -1,8 +1,9 @@
 import "./deckSetup.js";
 import { deckContainer, currentSize } from "./deckSetup.js";
-import { getElement, getStorageItem } from "../utils.js";
+import { getElement, getStorageItem, setStorageItem } from "../utils.js";
 import { gameFSM } from "./gameFSM.js";
 import { gameStates } from "../data.js";
+import { editSettings } from "../settings.js";
 
 let currentCardId, eventListenerOnPause, preveiousCardId, pairsToWin;
 

@@ -1,4 +1,5 @@
 // global imports
+import "./js/utils.js";
 import "./js/navbars/sidebarToggle.js";
 import "./js/navbars/navbarSetup.js";
 import "./js/navbars/sidebarSetup.js";

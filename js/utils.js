@@ -23,7 +23,7 @@ const setStorageItem = (name, item) => {
 const setCheckedState = (tag, subtag) => {
   const { subtagName, subtagClass } = subtag;
   let checked = "";
-  let activeSettingsArray = activeSettings();
+  let activeSettingsArray = activeSettings("settings");
 
   if (activeSettingsArray.includes(subtagClass)) {
     checked = "checked";

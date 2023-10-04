@@ -1,11 +1,12 @@
 import { getElement, setCheckedState, getStorageItem } from "../utils.js";
-import { navTags } from "../data.js";
+import { navTags, gameStates } from "../data.js";
 import {
   addEventListenersToRadioBtns,
   removeEventListenersFromRadioBtns,
+  addEventListenerToApplyChangesBtn,
 } from "./radioButtons.js";
-import { gameStates } from "../data.js";
 import { gameFSM } from "../game/gameFSM.js";
+import { CompareSizeAndThemeSettings } from "../settings.js";
 
 const nav = getElement(".nav");
 const hero = getElement(".hero");
@@ -53,6 +54,10 @@ tagBtns.forEach((btn) => {
       const radioBtns = [...settingsSubmenu.querySelectorAll(".settings-btn")];
       removeEventListenersFromRadioBtns(radioBtns);
       addEventListenersToRadioBtns(radioBtns);
+      if (CompareSizeAndThemeSettings()) {
+        AppendApplyBtn(settingsSubmenu);
+        addEventListenerToApplyChangesBtn(settingsSubmenu);
+      }
     }
   });
 });
@@ -86,3 +91,21 @@ nav.addEventListener("mouseover", function (e) {
     hideSettingsSubmenu();
   }
 });
+
+function AppendApplyBtn(submenu) {
+  if (submenu.classList.contains("show-submenu")) {
+    const ApplyBtnExists = submenu.querySelector(".apply-changes-btn");
+    if (!ApplyBtnExists) {
+      const applyBtn = document.createElement("button");
+      applyBtn.classList.add("btn", "apply-changes-btn");
+      applyBtn.style.marginTop = "1rem";
+      applyBtn.textContent = "apply changes";
+      submenu.appendChild(applyBtn);
+      addEventListenerToApplyChangesBtn(submenu);
+      return false;
+    }
+    return true;
+  }
+}
+
+export { AppendApplyBtn };

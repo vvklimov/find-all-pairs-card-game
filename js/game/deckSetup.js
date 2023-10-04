@@ -1,4 +1,4 @@
-import { getElement, getStorageItem } from "../utils.js";
+import { getElement, getStorageItem, setStorageItem } from "../utils.js";
 import { decks, gameStates } from "../data.js";
 import { IndexSelection } from "./randomizer.js";
 import { gameFSM } from "./gameFSM.js";
@@ -7,6 +7,7 @@ import { getRandomPeople } from "./APIs/fetchRandomPerson.js";
 import { addGameLogic } from "./logic.js";
 import { SetupOddEvenRowClass, SnakeLikeArrival } from "./deckTranslation.js";
 import { timersSetup, getTargetTimeValuesName } from "./timers/timersSetup.js";
+import { setupSettings } from "../settings.js";
 
 const deckContainer = getElement(".deck-container");
 const loading = getElement(".page-loading");
@@ -127,7 +128,11 @@ window.addEventListener("load", function () {
 });
 const displayDeck = async () => {
   displayDeckExecuting = true;
-  const { themes: currentTheme, size } = JSON.parse(getStorageItem("settings"));
+  setStorageItem("currentGameSettings", JSON.parse(getStorageItem("settings")));
+  const { themes: currentTheme, size } = JSON.parse(
+    getStorageItem("currentGameSettings")
+  );
+
   currentSize = Number(size.slice(0, 2));
   timersSetup(getTargetTimeValuesName());
   gameFSM(gameStates.idle);

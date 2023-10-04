@@ -90,6 +90,8 @@ body {
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 p {
@@ -328,6 +330,7 @@ navbar
   width: 100%;
   min-height: calc(100vh - 5rem);
   overflow: hidden;
+  /* left: -1px; */
 }
 .slide {
   position: absolute;
@@ -337,8 +340,8 @@ navbar
   /* transform: translateX(-100%); */
 }
 .slide-img {
-  width: 100%;
-  min-height: calc(100vh - 5rem);
+  width: calc(100% + 2px);
+  min-height: calc(100vh - 5rem + 2px);
   position: absolute;
   top: 50%;
   left: 50%;
@@ -555,6 +558,7 @@ sidebar
 }
 .sidebar > .new-game-btn {
   width: 90%;
+  min-width: fit-content;
   max-width: 250px;
 }
 

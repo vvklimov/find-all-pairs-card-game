@@ -1,11 +1,17 @@
-import { getStorageItem } from "../utils.js";
-import { activeSettings, editSettings } from "../settings.js";
+import { getElement, getStorageItem } from "../utils.js";
+import {
+  activeSettings,
+  editSettings,
+  CompareSizeAndThemeSettings,
+} from "../settings.js";
 import { gameStates } from "../data.js";
 import {
   timersSetup,
   getTargetTimeValuesName,
 } from "../game/timers/timersSetup.js";
-import { StartNewGame } from "./gameMenu.js";
+import { AppendApplyBtn } from "./navbarSetup.js";
+import { StartNewGame, displayGameMenu } from "./gameMenu.js";
+import { SidebarNewGameBtnTextContent } from "./sidebarToggle.js";
 function radioBtnClickHandler(e) {
   // extracting data-tag data-subtag
   const id = e.currentTarget.dataset.tag;
@@ -15,12 +21,29 @@ function radioBtnClickHandler(e) {
   // JSON.stringify because we cannot compare arrays, but we can compare strings
   //Object.values(object) to get values of an object
   // next few lines are for handling case if user clicks already active button
-  const previousSettings = JSON.stringify(activeSettings());
-  const currentSettingsObj = editSettings(id, subtagClass);
+  const previousSettings = JSON.stringify(activeSettings("settings"));
+  const currentSettingsObj = editSettings("settings", id, subtagClass);
+  if (id === "difficulty") {
+    editSettings("currentGameSettings", id, subtagClass);
+  }
   const currentSettings = JSON.stringify(Object.values(currentSettingsObj));
   if (previousSettings === currentSettings) {
     return;
   }
+  // comparing currentGameSettings and settings, we care about size and themes
+  if (id === "size" || id === "themes") {
+    SidebarNewGameBtnTextContent();
+    const submenu = getElement(".submenu");
+    if (CompareSizeAndThemeSettings()) {
+      AppendApplyBtn(submenu);
+    } else {
+      let btnExists = AppendApplyBtn(submenu);
+      if (btnExists) {
+        RemoveApplyBtn(submenu);
+      }
+    }
+  }
+
   // selecting elements with data-tag data-subtag
   const radioBtnsWithTag = [...document.querySelectorAll(`[data-tag="${id}"]`)];
   const radioBtnsWithSubTag = [
@@ -55,7 +78,7 @@ function radioBtnClickHandler(e) {
     currentGameState = JSON.parse(currentGameState);
     if (currentGameState === gameStates.idle) {
       if (id === "size" || id === "themes") {
-        StartNewGame();
+        // StartNewGame();
       } else if (id === "difficulty") {
         timersSetup(getTargetTimeValuesName());
         ////////////////////
@@ -80,5 +103,19 @@ function removeEventListenersFromRadioBtns(radioBtns) {
 }
 
 // setStorageItem("settings", defaultSettings);
+function RemoveApplyBtn(submenu) {
+  const applyChangesBtn = submenu.querySelector(".apply-changes-btn");
+  submenu.removeChild(applyChangesBtn);
+}
 
-export { addEventListenersToRadioBtns, removeEventListenersFromRadioBtns };
+function addEventListenerToApplyChangesBtn(submenu) {
+  const applyChangesBtn = submenu.querySelector(".apply-changes-btn");
+  applyChangesBtn.addEventListener("click", () => {
+    displayGameMenu();
+  });
+}
+export {
+  addEventListenersToRadioBtns,
+  removeEventListenersFromRadioBtns,
+  addEventListenerToApplyChangesBtn,
+};
