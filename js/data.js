@@ -61,6 +61,11 @@ const navTags = [
         subtagName: "sound effects",
         subtagClass: "sound-effects",
       },
+      ,
+      {
+        subtagName: "hide found cards",
+        subtagClass: "hide-found-cards",
+      },
     ],
   },
 ];
@@ -98,7 +103,11 @@ const defaultSettings = {
   difficulty: "normal",
   size: "16-cards",
   themes: "dark-fantasy",
-  other: { "show-rules": true, "sound-effects": true },
+  other: {
+    "show-rules": true,
+    "sound-effects": true,
+    "hide-found-cards": false,
+  },
 };
 const decks = [
   {

@@ -12,6 +12,7 @@ import {
 import { AppendApplyBtn } from "./navbarSetup.js";
 import { StartNewGame, displayGameMenu } from "./gameMenu.js";
 import { SidebarNewGameBtnTextContent } from "./sidebarToggle.js";
+import { CardsVanishing } from "../game/logic.js";
 function radioBtnClickHandler(e) {
   // extracting data-tag data-subtag
   const id = e.currentTarget.dataset.tag;
@@ -23,9 +24,6 @@ function radioBtnClickHandler(e) {
   // next few lines are for handling case if user clicks already active button
   const previousSettings = JSON.stringify(activeSettings("settings"));
   const currentSettingsObj = editSettings("settings", id, subtagClass);
-  if (id === "difficulty") {
-    editSettings("currentGameSettings", id, subtagClass);
-  }
   const currentSettings = JSON.stringify(Object.values(currentSettingsObj));
   if (previousSettings === currentSettings) {
     return;
@@ -42,6 +40,8 @@ function radioBtnClickHandler(e) {
         RemoveApplyBtn(submenu);
       }
     }
+  } else if (id === "other") {
+    editSettings("currentGameSettings", id, subtagClass);
   }
 
   // selecting elements with data-tag data-subtag
@@ -77,13 +77,16 @@ function radioBtnClickHandler(e) {
   if (currentGameState) {
     currentGameState = JSON.parse(currentGameState);
     if (currentGameState === gameStates.idle) {
-      if (id === "size" || id === "themes") {
-        // StartNewGame();
-      } else if (id === "difficulty") {
+      if (id === "difficulty") {
+        editSettings("currentGameSettings", id, subtagClass);
         timersSetup(getTargetTimeValuesName());
         ////////////////////
         // to do sound effects
         //////////////////////
+      }
+    } else if (currentGameState !== gameStates.idle) {
+      if (id === "other" && subtagClass === "hide-found-cards") {
+        CardsVanishing();
       }
     }
   }

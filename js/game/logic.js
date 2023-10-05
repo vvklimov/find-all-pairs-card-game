@@ -9,10 +9,8 @@ let currentCardId, eventListenerOnPause, preveiousCardId, pairsToWin;
 
 const addGameLogic = () => {
   SetDefaultVarValues();
-  // deckContainer.replaceWith(deckContainer.cloneNode(true));
-  const hero = getElement(".hero");
   deckContainer.addEventListener("click", GameLogicHandler);
-  hero.addEventListener("dragstart", preventDefaultDrag);
+  document.addEventListener("dragstart", preventDefaultDrag);
 };
 function GameLogicHandler(e) {
   let currentGameState = getStorageItem("currentGameState");
@@ -81,6 +79,7 @@ function SetFoundFlag(singleCards) {
       element.dataset.found = true;
     }
   });
+  CardsVanishing();
 }
 
 function GameOver() {
@@ -106,4 +105,24 @@ function SetDefaultVarValues() {
   pairsToWin = 1;
 }
 
-export { addGameLogic, RemoveEventListenersFromHero };
+function CardsVanishing() {
+  const cards = [...document.querySelectorAll(".single-card")];
+  const currentGameSettings = JSON.parse(getStorageItem("currentGameSettings"));
+  let hideFoundCards = currentGameSettings.other["hide-found-cards"];
+
+  cards.forEach((card) => {
+    if (hideFoundCards && JSON.parse(card.dataset.found) === true) {
+      if (!card.classList.contains("single-card-vanishing")) {
+        card.classList.add("single-card-vanishing");
+        card.childNodes[1].style.cursor = "default";
+      }
+    } else {
+      if (card.classList.contains("single-card-vanishing")) {
+        card.classList.remove("single-card-vanishing");
+        card.childNodes[1].style.cursor = "pointer";
+      }
+    }
+  });
+}
+
+export { addGameLogic, RemoveEventListenersFromHero, CardsVanishing };

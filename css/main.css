@@ -92,6 +92,9 @@ body {
   overflow-x: hidden;
   margin: 0;
   padding: 0;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 
 p {
@@ -416,6 +419,20 @@ single card
 .single-card-flip {
   transform: rotateY(180deg);
 }
+.single-card-vanishing {
+  animation: card-vanishing 1s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards, none;
+}
+@keyframes card-vanishing {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 .card-img {
   border-radius: 0.5rem;
   height: 100%;
@@ -645,6 +662,11 @@ end of sidebar
   top: -8px;
   left: 50%;
   transform: translateX(-50%);
+}
+.submenu .apply-changes-btn {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
 }
 .show-submenu {
   display: block;
