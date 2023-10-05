@@ -1,4 +1,4 @@
-import { getElement } from "../utils.js";
+import { PlaySound, getElement } from "../utils.js";
 import {
   addEventListenersToRadioBtns,
   removeEventListenersFromRadioBtns,
@@ -11,12 +11,14 @@ const sidebar = getElement(".sidebar-wrapper");
 const toggleBtn = getElement(".toggle-btn");
 
 closeBtn.addEventListener("click", () => {
+  PlaySound("./assets/sounds/btnClick.mp3", false);
   HideSidebar();
   gameFSM(gameStates.resume);
 });
 
 toggleBtn.addEventListener("click", () => {
   if (!sidebar.classList.contains("show")) {
+    PlaySound("./assets/sounds/btnClick.mp3", false);
     SidebarNewGameBtnTextContent();
     sidebar.classList.add("show");
     const settingsBtn = [...sidebar.querySelectorAll(".settings-btn")];

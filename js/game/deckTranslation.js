@@ -1,5 +1,5 @@
 import { gameStates } from "../data.js";
-import { getElement, getStorageItem } from "../utils.js";
+import { PlaySound, getElement, getStorageItem } from "../utils.js";
 import { displayDeckExecuting } from "./deckSetup.js";
 
 async function TransformCards(cards) {
@@ -19,6 +19,7 @@ async function TransformCard(card) {
     if (card) {
       {
         setTimeout(() => {
+          PlaySound("../assets/sounds/throwing-card.mp3", false);
           card.style.visibility = "visible";
           card.style.transform = `translate(0px, 0px)`;
           resolve();
@@ -32,6 +33,7 @@ async function TransformCard(card) {
 
 // moves cards to the left center of hero element, player cannot see them
 async function hideCards(position, cards) {
+  let soundPlayed = false;
   const heroContainer = getElement(".hero-container");
   const {
     top: topCoor,
@@ -51,9 +53,17 @@ async function hideCards(position, cards) {
       xDiff = -currentPos.right - 20;
       yDiff = heroCenterY - currentPos.bottom + cardCenterY;
     } else if (position === "center") {
+      if (!soundPlayed) {
+        PlaySound("./assets/sounds/whoop1.mp3", false);
+      }
+      soundPlayed = true;
       xDiff = heroCenterX - currentPos.right + cardCenterX;
       yDiff = heroCenterY - currentPos.bottom + cardCenterY;
     } else if (position === "center-right") {
+      if (!soundPlayed) {
+        PlaySound("./assets/sounds/whoop2.mp3", false);
+      }
+      soundPlayed = true;
       //  as it is already centered vertically, in order to maintain its vertical position we  have to calculate from inital card coordinates(its wrappers)
       const cardWrapper = [
         ...document.querySelectorAll(".single-card-wrapper"),
@@ -149,12 +159,17 @@ function SetupOddEvenRowClass(numberOfColumns, cards) {
 async function turnAllCardsBack() {
   // wait untill game menu closes
   await Timeout(500);
+  let playedSoundFlag = false;
   let foundFlippedCards = false;
   const cards = [...document.querySelectorAll(".single-card")];
 
   cards.forEach((card) => {
     if (card.classList.contains("single-card-flip")) {
       card.classList.remove("single-card-flip");
+      if (!playedSoundFlag) {
+        PlaySound("./assets/sounds/flipcard.mp3", false);
+        playedSoundFlag = true;
+      }
       foundFlippedCards = true;
     }
   });

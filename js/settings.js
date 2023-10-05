@@ -1,4 +1,5 @@
 import { defaultSettings } from "./data.js";
+import { SidebarSetup } from "./navbars/sidebarSetup.js";
 import { getStorageItem, setStorageItem } from "./utils.js";
 
 const editSettings = (settingsName, id, subtagClass) => {
@@ -48,6 +49,7 @@ const activeSettings = (settingsName) => {
 window.addEventListener("DOMContentLoaded", () => {
   setupSettings("settings");
   setupSettings("currentGameSettings");
+  SidebarSetup();
 });
 
 const CompareSizeAndThemeSettings = () => {

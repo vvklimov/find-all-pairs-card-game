@@ -1,6 +1,11 @@
 import "./deckSetup.js";
 import { deckContainer, currentSize } from "./deckSetup.js";
-import { getElement, getStorageItem, setStorageItem } from "../utils.js";
+import {
+  PlaySound,
+  getElement,
+  getStorageItem,
+  setStorageItem,
+} from "../utils.js";
 import { gameFSM } from "./gameFSM.js";
 import { gameStates } from "../data.js";
 import { editSettings } from "../settings.js";
@@ -30,6 +35,7 @@ function GameLogicHandler(e) {
     ) {
       gameFSM(gameStates.game);
       singleCard.classList.add("single-card-flip");
+      PlaySound("./assets/sounds/flipcard.mp3", false);
       // if we flip first card of pair
       if (!preveiousCardId) {
         preveiousCardId = singleCard.dataset.cardId;
@@ -65,6 +71,7 @@ function turnCardsBack(singleCards) {
     if (element.dataset.found === "false") {
       if (element.classList.contains("single-card-flip")) {
         element.classList.remove("single-card-flip");
+        PlaySound("./assets/sounds/flipcard.mp3", false);
       }
     }
     eventListenerOnPause = false;
@@ -101,8 +108,8 @@ function SetDefaultVarValues() {
   eventListenerOnPause = false;
   preveiousCardId = false;
 
-  // pairsToWin = currentSize / 2;
-  pairsToWin = 1;
+  pairsToWin = currentSize / 2;
+  // pairsToWin = 1;
 }
 
 function CardsVanishing() {

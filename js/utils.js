@@ -37,4 +37,22 @@ const setCheckedState = (tag, subtag) => {
   return { checked, subtagName, subtagClass };
 };
 
-export { getElement, getStorageItem, setStorageItem, setCheckedState };
+function PlaySound(soundName, loopFlag) {
+  let currentGameSettings = getStorageItem("currentGameSettings");
+  if (currentGameSettings) {
+    currentGameSettings = JSON.parse(currentGameSettings);
+    const { other } = currentGameSettings;
+    if (other["sound-effects"] === true) {
+      let audio = new Audio(soundName);
+      audio.loop = loopFlag;
+      audio.play();
+    } else return;
+  }
+}
+export {
+  getElement,
+  getStorageItem,
+  setStorageItem,
+  setCheckedState,
+  PlaySound,
+};

@@ -1,13 +1,12 @@
 import { getElement, setCheckedState } from "../utils.js";
 import { navTags } from "../data.js";
-import { setupSettings } from "../settings.js";
 
-const sidebarTagsUl = getElement(".sidebar-tags-ul");
-setupSettings();
-sidebarTagsUl.innerHTML = navTags
-  .map((item) => {
-    const { tag, subtags } = item;
-    return `<li>
+const SidebarSetup = () => {
+  const sidebarTagsUl = getElement(".sidebar-tags-ul");
+  sidebarTagsUl.innerHTML = navTags
+    .map((item) => {
+      const { tag, subtags } = item;
+      return `<li>
               <h4 class="tag-btn tag-btn-gradient gradient-hover-effect">${tag}</h4>
               <ul>
               ${subtags
@@ -29,5 +28,7 @@ sidebarTagsUl.innerHTML = navTags
                 
               </ul>
             </li>`;
-  })
-  .join("");
+    })
+    .join("");
+};
+export { SidebarSetup };

@@ -1,5 +1,5 @@
 import { gameStates } from "../data.js";
-import { getElement, getStorageItem } from "../utils.js";
+import { PlaySound, getElement, getStorageItem } from "../utils.js";
 import { gameFSM } from "../game/gameFSM.js";
 import { displayDeck, displayDeckExecuting } from "../game/deckSetup.js";
 import { RemoveTimer } from "../game/timers/countUpTimer.js";
@@ -17,6 +17,7 @@ newGameBtns.forEach((btn) => {
   btn.addEventListener("click", ShowGameMenu);
 });
 function ShowGameMenu() {
+  PlaySound("./assets/sounds/btnClick.mp3", false);
   let currentGameState = JSON.parse(getStorageItem("currentGameState"));
   displayGameMenu(currentGameState);
 }
@@ -58,6 +59,7 @@ function displayGameMenu(currentGameState, min, sec, msec, recordFlag) {
   });
 }
 function GameMenuHandler(e) {
+  PlaySound("./assets/sounds/btnClick.mp3", false);
   const btn = e.currentTarget;
   if (btn.classList.contains("close-btn")) {
     gameFSM(gameStates.resume);

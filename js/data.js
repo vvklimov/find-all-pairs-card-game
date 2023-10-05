@@ -331,7 +331,7 @@ const targetTimeValues = {
     {
       mins: "00",
       // don't forget to change it back to 20 seconds
-      secs: "07",
+      secs: "20",
       msecs: "00",
     },
   ],

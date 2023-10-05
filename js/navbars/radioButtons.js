@@ -1,4 +1,4 @@
-import { getElement, getStorageItem } from "../utils.js";
+import { PlaySound, getElement, getStorageItem } from "../utils.js";
 import {
   activeSettings,
   editSettings,
@@ -28,6 +28,7 @@ function radioBtnClickHandler(e) {
   if (previousSettings === currentSettings) {
     return;
   }
+  PlaySound("./assets/sounds/radioBtnClick.mp3", false);
   // comparing currentGameSettings and settings, we care about size and themes
   if (id === "size" || id === "themes") {
     SidebarNewGameBtnTextContent();
@@ -114,6 +115,7 @@ function RemoveApplyBtn(submenu) {
 function addEventListenerToApplyChangesBtn(submenu) {
   const applyChangesBtn = submenu.querySelector(".apply-changes-btn");
   applyChangesBtn.addEventListener("click", () => {
+    PlaySound("./assets/sounds/btnClick.mp3", false);
     displayGameMenu();
   });
 }

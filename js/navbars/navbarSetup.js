@@ -1,4 +1,9 @@
-import { getElement, setCheckedState, getStorageItem } from "../utils.js";
+import {
+  getElement,
+  setCheckedState,
+  getStorageItem,
+  PlaySound,
+} from "../utils.js";
 import { navTags, gameStates } from "../data.js";
 import {
   addEventListenersToRadioBtns,
@@ -17,6 +22,7 @@ tagBtns.forEach((btn) => {
   btn.addEventListener("mouseover", (e) => {
     gameFSM(gameStates.pause);
     if (e.target.classList.contains("nav-btn")) {
+      PlaySound("./assets/sounds/hoverMenuSound.mp3", false);
       removeGradient();
       hideSettingsSubmenu();
       const text = e.currentTarget.textContent;
