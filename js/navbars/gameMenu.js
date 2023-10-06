@@ -84,6 +84,6 @@ async function StartNewGame() {
   }
   await RemoveDeck();
   await ChooseBackground();
-  await displayDeck();
+  await displayDeck(true);
 }
 export { displayGameMenu, StartNewGame };

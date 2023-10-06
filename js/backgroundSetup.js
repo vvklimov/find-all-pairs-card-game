@@ -42,8 +42,8 @@ const ChooseBackground = async () => {
   await Timeout(1000);
 };
 
-window.addEventListener("DOMContentLoaded", () => {
-  BackgroundsSetup();
-  ChooseBackground();
-});
-export { ChooseBackground };
+// window.addEventListener("DOMContentLoaded", () => {
+//   BackgroundsSetup();
+//   ChooseBackground();
+// });
+export { ChooseBackground, BackgroundsSetup };

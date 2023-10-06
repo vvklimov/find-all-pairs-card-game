@@ -13,6 +13,7 @@ const deckContainer = getElement(".deck-container");
 const loading = getElement(".page-loading");
 let displayDeckExecuting = false;
 let currentSize;
+let isPageLoaded = false;
 
 //////////////////////////////
 // export const currentSize = 16;
@@ -75,7 +76,6 @@ function SetWidthToCards(currentSize) {
   });
 }
 
-// window.addEventListener("DOMContentLoaded", SetWidthToCards());
 window.addEventListener("resize", () => {
   SetWidthToCards(currentSize);
 });
@@ -125,8 +125,9 @@ function setupGrid(currentSize) {
 window.addEventListener("load", function () {
   gameFSM(gameStates.idle);
   loading.style.display = "none";
+  isPageLoaded = true;
 });
-const displayDeck = async () => {
+const displayDeck = async (dontWaitFlag) => {
   displayDeckExecuting = true;
   setStorageItem("currentGameSettings", JSON.parse(getStorageItem("settings")));
   const { themes: currentTheme, size } = JSON.parse(
@@ -143,11 +144,14 @@ const displayDeck = async () => {
   }
   deckSetup(currentSize, currentTheme);
   SetWidthToCards(currentSize);
+  if (!dontWaitFlag) {
+    await WaitForPageLoad();
+  }
   await SnakeLikeArrival();
   addGameLogic();
   displayDeckExecuting = false;
 };
-window.addEventListener("DOMContentLoaded", displayDeck);
+// window.addEventListener("DOMContentLoaded", displayDeck);
 // displayDeck();
 
 function RemoveGrid() {
@@ -162,6 +166,13 @@ function RemoveGrid() {
   }
   if (deckContainer.classList.contains("grid-9columns")) {
     deckContainer.classList.remove("grid-9columns");
+  }
+}
+async function WaitForPageLoad() {
+  if (!isPageLoaded) {
+    await new Promise((resolve) => {
+      window.addEventListener("load", resolve);
+    });
   }
 }
 

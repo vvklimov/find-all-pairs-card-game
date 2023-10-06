@@ -1,6 +1,9 @@
 import { defaultSettings } from "./data.js";
+import { ShowRules } from "./loading.js";
 import { SidebarSetup } from "./navbars/sidebarSetup.js";
 import { getStorageItem, setStorageItem } from "./utils.js";
+import { displayDeck } from "./game/deckSetup.js";
+import { BackgroundsSetup, ChooseBackground } from "./backgroundSetup.js";
 
 const editSettings = (settingsName, id, subtagClass) => {
   let settings = getStorageItem(settingsName);
@@ -49,8 +52,13 @@ const activeSettings = (settingsName) => {
 window.addEventListener("DOMContentLoaded", () => {
   setupSettings("settings");
   setupSettings("currentGameSettings");
+  ShowRules();
   SidebarSetup();
+  BackgroundsSetup();
+  ChooseBackground();
+  displayDeck();
 });
+// window.addEventListener("load", displayDeck);
 
 const CompareSizeAndThemeSettings = () => {
   const differ = true;
