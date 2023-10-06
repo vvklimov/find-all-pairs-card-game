@@ -71,7 +71,6 @@ function turnCardsBack(singleCards) {
     if (element.dataset.found === "false") {
       if (element.classList.contains("single-card-flip")) {
         element.classList.remove("single-card-flip");
-        PlaySound("./assets/sounds/flipcard.mp3", false);
       }
     }
     eventListenerOnPause = false;
